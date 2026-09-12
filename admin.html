@@ -462,12 +462,64 @@
         onclick="showSection('registrations', this)"
       >
         Event Registrations
-      </button>
+      <!-- =========================
+     EVENT REGISTRATIONS
+========================= -->
 
-      <button
-        class="nav-item"
-        onclick="showSection('attendance', this)"
-      >
+<section id="event-registrations" class="content-section">
+
+  <div class="section-header">
+    <div>
+      <h2>Event Registrations</h2>
+      <p>View people who registered for events.</p>
+    </div>
+
+    <button
+      class="primary-btn"
+      onclick="loadRegistrations()"
+    >
+      Refresh
+    </button>
+  </div>
+
+  <div class="stats-grid">
+    <div class="card">
+      <div class="card-title">Total Registrations</div>
+      <div class="card-value" id="registrationsCount">0</div>
+    </div>
+  </div>
+
+  <div id="registrationMessage" class="event-message"></div>
+
+  <div class="events-table-wrapper">
+
+    <table class="events-table">
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Event</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody id="registrationsTableBody">
+
+        <tr>
+          <td colspan="5" class="loading-message">
+            Loading registrations...
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>
         Event Attendance
       </button>
 
