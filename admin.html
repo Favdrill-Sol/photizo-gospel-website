@@ -230,6 +230,114 @@
       display: block;
     }
 
+    /* EVENTS */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+    }
+
+    .add-event-form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .add-event-form input {
+      flex: 1;
+      padding: 13px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    .primary-btn {
+      padding: 13px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #111827;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .primary-btn:hover {
+      background: #000;
+    }
+
+    .events-table-wrapper {
+      overflow-x: auto;
+    }
+
+    .events-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 500px;
+    }
+
+    .events-table th,
+    .events-table td {
+      padding: 14px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .events-table th {
+      background: #f9fafb;
+      color: #374151;
+      font-size: 13px;
+    }
+
+    .events-table td {
+      color: #4b5563;
+      font-size: 14px;
+    }
+
+    .delete-btn {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      background: #dc2626;
+      color: white;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .delete-btn:hover {
+      background: #b91c1c;
+    }
+
+    .event-message {
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .success-message {
+      color: #16a34a;
+    }
+
+    .error-message {
+      color: #dc2626;
+    }
+
+    .empty-message {
+      text-align: center;
+      padding: 30px;
+      color: #6b7280;
+    }
+
+    .loading-message {
+      text-align: center;
+      padding: 30px;
+      color: #6b7280;
+    }
+
     /* MOBILE */
     @media (max-width: 900px) {
       .sidebar {
@@ -271,6 +379,19 @@
 
       .cards {
         grid-template-columns: 1fr;
+      }
+
+      .add-event-form {
+        flex-direction: column;
+      }
+
+      .primary-btn {
+        width: 100%;
+      }
+
+      .section-header {
+        align-items: flex-start;
+        flex-direction: column;
       }
     }
   </style>
@@ -315,7 +436,6 @@
   <!-- DASHBOARD -->
   <div id="dashboard">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
 
       <div class="brand">
@@ -323,38 +443,65 @@
         <span>Gospel Mission International</span>
       </div>
 
-      <button class="nav-item active" onclick="showSection('overview', this)">
+      <button
+        class="nav-item active"
+        onclick="showSection('overview', this)"
+      >
         Dashboard
       </button>
 
-      <button class="nav-item" onclick="showSection('members', this)">
-        Members
-      </button>
-
-      <button class="nav-item" onclick="showSection('events', this)">
+      <button
+        class="nav-item"
+        onclick="showSection('events', this)"
+      >
         Events
       </button>
 
-      <button class="nav-item" onclick="showSection('sermons', this)">
+      <button
+        class="nav-item"
+        onclick="showSection('registrations', this)"
+      >
+        Event Registrations
+      </button>
+
+      <button
+        class="nav-item"
+        onclick="showSection('attendance', this)"
+      >
+        Event Attendance
+      </button>
+
+      <button
+        class="nav-item"
+        onclick="showSection('sermons', this)"
+      >
         Sermons
       </button>
 
-      <button class="nav-item" onclick="showSection('announcements', this)">
-        Announcements
+      <button
+        class="nav-item"
+        onclick="showSection('admin', this)"
+      >
+        Admin
       </button>
 
-      <button class="nav-item" onclick="showSection('settings', this)">
+      <button
+        class="nav-item"
+        onclick="showSection('settings', this)"
+      >
         Settings
       </button>
 
-      <button class="logout-btn" onclick="logout()">
+      <button
+        class="logout-btn"
+        onclick="logout()"
+      >
         Logout
       </button>
 
     </aside>
 
 
-    <!-- MAIN CONTENT -->
     <main class="main-content">
 
       <div class="topbar">
@@ -370,34 +517,59 @@
       </div>
 
 
-      <!-- OVERVIEW -->
-      <section id="overview" class="section active">
+      <!-- DASHBOARD OVERVIEW -->
+
+      <section
+        id="overview"
+        class="section active"
+      >
 
         <div class="cards">
 
           <div class="card">
-            <div class="card-title">
-              Members
-            </div>
 
-            <div class="card-value">
-              0
-            </div>
-          </div>
-
-
-          <div class="card">
             <div class="card-title">
               Events
             </div>
 
-            <div class="card-value">
+            <div
+              class="card-value"
+              id="eventsCount"
+            >
               0
             </div>
+
           </div>
 
 
           <div class="card">
+
+            <div class="card-title">
+              Event Registrations
+            </div>
+
+            <div class="card-value">
+              0
+            </div>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="card-title">
+              Attendance
+            </div>
+
+            <div class="card-value">
+              0
+            </div>
+
+          </div>
+
+
+          <div class="card">
+
             <div class="card-title">
               Sermons
             </div>
@@ -405,17 +577,7 @@
             <div class="card-value">
               0
             </div>
-          </div>
 
-
-          <div class="card">
-            <div class="card-title">
-              Announcements
-            </div>
-
-            <div class="card-value">
-              0
-            </div>
           </div>
 
         </div>
@@ -426,25 +588,9 @@
           <h2>Welcome to the Admin Dashboard</h2>
 
           <p>
-            From this dashboard, administrators will be able to manage
-            Photizo Gospel Mission International website content,
-            members, events, sermons and announcements.
-          </p>
-
-        </div>
-
-      </section>
-
-
-      <!-- MEMBERS -->
-      <section id="members" class="section">
-
-        <div class="content-box">
-
-          <h2>Members</h2>
-
-          <p>
-            Member management will be added here.
+            From this dashboard, administrators can manage
+            Photizo Gospel Mission International website
+            content, events, registrations, attendance and sermons.
           </p>
 
         </div>
@@ -453,14 +599,125 @@
 
 
       <!-- EVENTS -->
-      <section id="events" class="section">
+
+      <section
+        id="events"
+        class="section"
+      >
 
         <div class="content-box">
 
-          <h2>Events</h2>
+          <div class="section-header">
+
+            <h2>Events</h2>
+
+            <button
+              class="primary-btn"
+              onclick="loadEvents()"
+            >
+              Refresh
+            </button>
+
+          </div>
+
+
+          <div
+            id="eventMessage"
+            class="event-message"
+          ></div>
+
+
+          <div class="add-event-form">
+
+            <input
+              type="text"
+              id="eventTitle"
+              placeholder="Enter event title"
+            >
+
+            <button
+              class="primary-btn"
+              onclick="addEvent()"
+            >
+              Add Event
+            </button>
+
+          </div>
+
+
+          <div class="events-table-wrapper">
+
+            <table class="events-table">
+
+              <thead>
+
+                <tr>
+                  <th>ID</th>
+                  <th>Event Title</th>
+                  <th>Action</th>
+                </tr>
+
+              </thead>
+
+              <tbody id="eventsTableBody">
+
+                <tr>
+
+                  <td
+                    colspan="3"
+                    class="loading-message"
+                  >
+                    Loading events...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- REGISTRATIONS -->
+
+      <section
+        id="registrations"
+        class="section"
+      >
+
+        <div class="content-box">
+
+          <h2>Event Registrations</h2>
 
           <p>
-            Event management will be added here.
+            Event registration management will be connected
+            to the Event_registration table next.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ATTENDANCE -->
+
+      <section
+        id="attendance"
+        class="section"
+      >
+
+        <div class="content-box">
+
+          <h2>Event Attendance</h2>
+
+          <p>
+            Event attendance management will be connected
+            to the Event_attendance table next.
           </p>
 
         </div>
@@ -469,14 +726,19 @@
 
 
       <!-- SERMONS -->
-      <section id="sermons" class="section">
+
+      <section
+        id="sermons"
+        class="section"
+      >
 
         <div class="content-box">
 
           <h2>Sermons</h2>
 
           <p>
-            Sermon management will be added here.
+            Sermon management will be connected
+            to the Sermons table next.
           </p>
 
         </div>
@@ -484,15 +746,20 @@
       </section>
 
 
-      <!-- ANNOUNCEMENTS -->
-      <section id="announcements" class="section">
+      <!-- ADMIN -->
+
+      <section
+        id="admin"
+        class="section"
+      >
 
         <div class="content-box">
 
-          <h2>Announcements</h2>
+          <h2>Admin</h2>
 
           <p>
-            Announcement management will be added here.
+            Administrator management will be connected
+            to the Admin table next.
           </p>
 
         </div>
@@ -501,7 +768,11 @@
 
 
       <!-- SETTINGS -->
-      <section id="settings" class="section">
+
+      <section
+        id="settings"
+        class="section"
+      >
 
         <div class="content-box">
 
@@ -521,36 +792,50 @@
 
 
   <!-- SUPABASE -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
 
-    /*
-      IMPORTANT:
-      Keep the SAME Supabase URL and ANON KEY
-      that were already working in your previous admin.html.
-    */
+    /* =========================
+       SUPABASE CONNECTION
+    ========================= */
 
-    const SUPABASE_URL = "YOUR_SUPABASE_URL";
-    const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+    const SUPABASE_URL =
+      "https://dtrhlngjqecednckwexv.supabase.co";
 
-    const supabaseClient = window.supabase.createClient(
-      https://dtrhlngjqecednckwexv.supabase.co,
-      sb_publishable_orDFZig1PQp8ql7zRAMIuA_SXgoy4E3
-    );
+    const SUPABASE_ANON_KEY =
+      "sb_publishable_orDFZig1PQp8ql7zRAMIuA_SXgoy4E3";
 
 
-    // LOGIN
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
+
+
+    /* =========================
+       LOGIN
+    ========================= */
+
     async function login() {
 
       const email =
-        document.getElementById("email").value.trim();
+        document
+          .getElementById("email")
+          .value
+          .trim();
 
       const password =
-        document.getElementById("password").value;
+        document
+          .getElementById("password")
+          .value;
 
       const message =
-        document.getElementById("loginMessage");
+        document.getElementById(
+          "loginMessage"
+        );
 
 
       message.textContent = "";
@@ -568,10 +853,14 @@
       try {
 
         const { data, error } =
-          await supabaseClient.auth.signInWithPassword({
-            email: email,
-            password: password
-          });
+          await supabaseClient.auth
+            .signInWithPassword({
+
+              email: email,
+
+              password: password
+
+            });
 
 
         if (error) {
@@ -585,109 +874,354 @@
 
         if (data.session) {
 
-          document.getElementById("loginPage").style.display =
-            "none";
+          document
+            .getElementById("loginPage")
+            .style.display = "none";
 
-          document.getElementById("dashboard").style.display =
-            "block";
+
+          document
+            .getElementById("dashboard")
+            .style.display = "block";
+
+
+          loadEvents();
 
         }
 
       } catch (error) {
 
+        console.error(error);
+
         message.textContent =
           "Something went wrong. Please try again.";
-
-        console.error(error);
 
       }
 
     }
 
 
-    // LOGOUT
+    /* =========================
+       LOGOUT
+    ========================= */
+
     async function logout() {
 
       await supabaseClient.auth.signOut();
 
-      document.getElementById("dashboard").style.display =
-        "none";
 
-      document.getElementById("loginPage").style.display =
-        "flex";
+      document
+        .getElementById("dashboard")
+        .style.display = "none";
 
-      document.getElementById("email").value = "";
 
-      document.getElementById("password").value = "";
+      document
+        .getElementById("loginPage")
+        .style.display = "flex";
+
+
+      document
+        .getElementById("email")
+        .value = "";
+
+
+      document
+        .getElementById("password")
+        .value = "";
 
     }
 
 
-    // NAVIGATION
-    function showSection(sectionId, button) {
+    /* =========================
+       NAVIGATION
+    ========================= */
+
+    function showSection(
+      sectionId,
+      button
+    ) {
 
       const sections =
-        document.querySelectorAll(".section");
+        document.querySelectorAll(
+          ".section"
+        );
+
 
       sections.forEach(section => {
 
-        section.classList.remove("active");
+        section.classList.remove(
+          "active"
+        );
 
       });
 
 
       const selectedSection =
-        document.getElementById(sectionId);
+        document.getElementById(
+          sectionId
+        );
+
 
       if (selectedSection) {
 
-        selectedSection.classList.add("active");
+        selectedSection.classList.add(
+          "active"
+        );
 
       }
 
 
       const buttons =
-        document.querySelectorAll(".nav-item");
+        document.querySelectorAll(
+          ".nav-item"
+        );
+
 
       buttons.forEach(btn => {
 
-        btn.classList.remove("active");
+        btn.classList.remove(
+          "active"
+        );
 
       });
 
 
       if (button) {
 
-        button.classList.add("active");
+        button.classList.add(
+          "active"
+        );
+
+      }
+
+
+      if (sectionId === "events") {
+
+        loadEvents();
 
       }
 
     }
 
 
-    // CHECK EXISTING SESSION
-    async function checkSession() {
+    /* =========================
+       LOAD EVENTS
+    ========================= */
 
-      const { data } =
-        await supabaseClient.auth.getSession();
+    async function loadEvents() {
+
+      const tableBody =
+        document.getElementById(
+          "eventsTableBody"
+        );
 
 
-      if (data.session) {
+      tableBody.innerHTML = `
 
-        document.getElementById("loginPage").style.display =
-          "none";
+        <tr>
 
-        document.getElementById("dashboard").style.display =
-          "block";
+          <td
+            colspan="3"
+            class="loading-message"
+          >
+            Loading events...
+          </td>
+
+        </tr>
+
+      `;
+
+
+      clearEventMessage();
+
+
+      try {
+
+        const { data, error } =
+          await supabaseClient
+            .from("Events")
+            .select("id, title")
+            .order("id", {
+              ascending: false
+            });
+
+
+        if (error) {
+
+          console.error(
+            "Load events error:",
+            error
+          );
+
+
+          tableBody.innerHTML = `
+
+            <tr>
+
+              <td
+                colspan="3"
+                class="empty-message"
+              >
+                Unable to load events.
+              </td>
+
+            </tr>
+
+          `;
+
+
+          showEventMessage(
+            error.message,
+            "error"
+          );
+
+          return;
+        }
+
+
+        document
+          .getElementById(
+            "eventsCount"
+          )
+          .textContent =
+          data ? data.length : 0;
+
+
+        if (!data || data.length === 0) {
+
+          tableBody.innerHTML = `
+
+            <tr>
+
+              <td
+                colspan="3"
+                class="empty-message"
+              >
+                No events found.
+              </td>
+
+            </tr>
+
+          `;
+
+          return;
+        }
+
+
+        tableBody.innerHTML = "";
+
+
+        data.forEach(event => {
+
+          const row =
+            document.createElement("tr");
+
+
+          const idCell =
+            document.createElement("td");
+
+          idCell.textContent =
+            event.id;
+
+
+          const titleCell =
+            document.createElement("td");
+
+          titleCell.textContent =
+            event.title || "";
+
+
+          const actionCell =
+            document.createElement("td");
+
+
+          const deleteButton =
+            document.createElement("button");
+
+
+          deleteButton.className =
+            "delete-btn";
+
+          deleteButton.textContent =
+            "Delete";
+
+
+          deleteButton.onclick =
+            function() {
+
+              deleteEvent(event.id);
+
+            };
+
+
+          actionCell.appendChild(
+            deleteButton
+          );
+
+
+          row.appendChild(
+            idCell
+          );
+
+          row.appendChild(
+            titleCell
+          );
+
+          row.appendChild(
+            actionCell
+          );
+
+
+          tableBody.appendChild(
+            row
+          );
+
+        });
+
+      } catch (error) {
+
+        console.error(error);
+
+
+        tableBody.innerHTML = `
+
+          <tr>
+
+            <td
+              colspan="3"
+              class="empty-message"
+            >
+              Something went wrong while loading events.
+            </td>
+
+          </tr>
+
+        `;
 
       }
 
     }
 
 
-    checkSession();
+    /* =========================
+       ADD EVENT
+    ========================= */
 
-  </script>
+    async function addEvent() {
 
-</body>
-    </html>
+      const input =
+        document.getElementById(
+          "eventTitle"
+        );
+
+
+      const title =
+        input.value.trim();
+
+
+      clearEventMessage();
+
+
+      if (!title) {
+
+        showEventMessage(
+          "Please enter an ev
