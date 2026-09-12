@@ -616,3 +616,527 @@ img {
 
     text-transform: uppercase;
       }
+/* =========================================================
+   PHOTIZO GOSPEL MISSION INTERNATIONAL
+   MAIN WEBSITE STYLES
+   PART 2 — ABOUT, PASTOR & MINISTRIES
+========================================================= */
+
+
+/* =========================================================
+   ABOUT SECTION
+========================================================= */
+
+.about-section {
+    background:
+        linear-gradient(
+            180deg,
+            #080808 0%,
+            #0d0d0d 100%
+        );
+}
+
+
+.about-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 80px;
+
+    align-items: start;
+}
+
+
+.about-content {
+    max-width: 600px;
+}
+
+
+.about-content p {
+    color: var(--text-muted);
+
+    font-size: 16px;
+
+    margin-bottom: 22px;
+}
+
+
+.about-content .lead-text {
+    color: var(--white);
+
+    font-size: 24px;
+
+    line-height: 1.5;
+
+    margin-bottom: 28px;
+}
+
+
+/* =========================================================
+   ABOUT HIGHLIGHTS
+========================================================= */
+
+.about-highlight {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+
+.highlight-card {
+    position: relative;
+
+    min-height: 280px;
+
+    padding: 30px 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.05),
+            rgba(255,255,255,0.015)
+        );
+
+    border:
+        1px solid var(--border);
+
+    overflow: hidden;
+
+    transition:
+        transform var(--transition),
+        border-color var(--transition),
+        background var(--transition);
+}
+
+
+.highlight-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    height: 3px;
+
+    background: var(--gold);
+
+    transform:
+        scaleX(0);
+
+    transform-origin: left;
+
+    transition:
+        transform var(--transition);
+}
+
+
+.highlight-card:hover {
+    transform:
+        translateY(-8px);
+
+    border-color:
+        rgba(
+            216,
+            155,
+            50,
+            0.55
+        );
+
+    background:
+        rgba(
+            216,
+            155,
+            50,
+            0.05
+        );
+}
+
+
+.highlight-card:hover::before {
+    transform:
+        scaleX(1);
+}
+
+
+.highlight-number {
+    display: block;
+
+    color: var(--gold);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 70px;
+}
+
+
+.highlight-card h3 {
+    font-size: 20px;
+
+    margin-bottom: 12px;
+}
+
+
+.highlight-card p {
+    color: var(--text-muted);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   PASTOR SECTION
+========================================================= */
+
+.pastor-section {
+    background:
+        #0d0d0d;
+
+    border-top:
+        1px solid rgba(
+            255,
+            255,
+            255,
+            0.04
+        );
+
+    border-bottom:
+        1px solid rgba(
+            255,
+            255,
+            255,
+            0.04
+        );
+}
+
+
+.pastor-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 0.9fr)
+        minmax(0, 1.1fr);
+
+    gap: 90px;
+
+    align-items: center;
+}
+
+
+/* =========================================================
+   PASTOR IMAGE PLACEHOLDER
+========================================================= */
+
+.pastor-image-wrapper {
+    position: relative;
+
+    min-height: 600px;
+}
+
+
+.pastor-image-wrapper::before {
+    content: "";
+
+    position: absolute;
+
+    top: 25px;
+    left: 25px;
+
+    width: 100%;
+    height: 100%;
+
+    border:
+        1px solid var(--gold-dark);
+
+    pointer-events: none;
+}
+
+
+.pastor-image-placeholder {
+    position: relative;
+
+    min-height: 600px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(
+                216,
+                155,
+                50,
+                0.16
+            ),
+            transparent 50%
+        ),
+        linear-gradient(
+            145deg,
+            #1b1b1b,
+            #080808
+        );
+
+    border:
+        1px solid var(--border);
+
+    overflow: hidden;
+}
+
+
+.pastor-image-placeholder::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            transparent 45%,
+            rgba(
+                216,
+                155,
+                50,
+                0.12
+            ) 50%,
+            transparent 55%
+        );
+
+    opacity: 0.6;
+}
+
+
+.pastor-image-placeholder span {
+    position: relative;
+
+    z-index: 2;
+
+    color: var(--gold-light);
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    letter-spacing: 5px;
+}
+
+
+/* =========================================================
+   PASTOR CONTENT
+========================================================= */
+
+.pastor-content {
+    max-width: 650px;
+}
+
+
+.pastor-content h2 {
+    margin-bottom: 10px;
+}
+
+
+.pastor-title {
+    color: var(--gold-light) !important;
+
+    font-size: 13px !important;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 30px !important;
+}
+
+
+.pastor-content p:not(.section-label):not(.pastor-title) {
+    color: var(--text-muted);
+
+    font-size: 16px;
+
+    margin-bottom: 22px;
+}
+
+
+.pastor-content .btn {
+    margin-top: 15px;
+}
+
+
+/* =========================================================
+   MINISTRIES SECTION
+========================================================= */
+
+.ministries-section {
+    background:
+        #080808;
+}
+
+
+.ministries-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+}
+
+
+.ministry-card {
+    position: relative;
+
+    min-height: 330px;
+
+    padding: 35px 28px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-end;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #0b0b0b
+        );
+
+    border:
+        1px solid rgba(
+            255,
+            255,
+            255,
+            0.07
+        );
+
+    overflow: hidden;
+
+    transition:
+        transform var(--transition),
+        border-color var(--transition);
+}
+
+
+.ministry-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: -60px;
+    right: -60px;
+
+    width: 160px;
+    height: 160px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(
+            216,
+            155,
+            50,
+            0.08
+        );
+
+    transition:
+        transform var(--transition);
+}
+
+
+.ministry-card:hover {
+    transform:
+        translateY(-8px);
+
+    border-color:
+        var(--gold-dark);
+}
+
+
+.ministry-card:hover::before {
+    transform:
+        scale(1.4);
+}
+
+
+.card-number {
+    position: absolute;
+
+    top: 28px;
+    left: 28px;
+
+    color: var(--gold);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+
+.ministry-card h3 {
+    position: relative;
+
+    z-index: 2;
+
+    font-size: 21px;
+
+    margin-bottom: 12px;
+}
+
+
+.ministry-card p {
+    position: relative;
+
+    z-index: 2;
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   GOLD DECORATIVE LINE
+========================================================= */
+
+.about-section::after,
+.ministries-section::after {
+    content: "";
+
+    display: block;
+
+    width: 60px;
+
+    height: 2px;
+
+    background:
+        var(--gold);
+
+    margin:
+        0 auto;
+}
