@@ -1,4 +1,4 @@
-/* =========================================================
+my/* =========================================================
    PHOTIZO GOSPEL MISSION INTERNATIONAL
    MAIN WEBSITE STYLES
    PART 1 — FOUNDATION & HEADER
@@ -1139,4 +1139,760 @@ img {
 
     margin:
         0 auto;
+   /* =========================================================
+   PHOTIZO GOSPEL MISSION INTERNATIONAL
+   MAIN WEBSITE STYLES
+   PART 3 — SERMONS, EVENTS, CONTACT & FOOTER
+========================================================= */
+
+
+/* =========================================================
+   SERMONS SECTION
+========================================================= */
+
+.sermons-section {
+    background:
+        linear-gradient(
+            180deg,
+            #0d0d0d 0%,
+            #080808 100%
+        );
+}
+
+
+.sermons-container {
+    min-height: 280px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+/* =========================================================
+   EVENTS SECTION
+========================================================= */
+
+.events-section {
+    background:
+        #0d0d0d;
+
+    border-top:
+        1px solid rgba(
+            255,
+            255,
+            255,
+            0.04
+        );
+}
+
+
+.events-container {
+    min-height: 280px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-state {
+    width: 100%;
+
+    max-width: 620px;
+
+    padding: 60px 30px;
+
+    text-align: center;
+
+    border:
+        1px solid var(--border);
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.025
+        );
+}
+
+
+.empty-icon {
+    width: 54px;
+    height: 54px;
+
+    margin:
+        0 auto 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+        1px solid var(--gold-dark);
+
+    border-radius: 50%;
+
+    color: var(--gold-light);
+
+    font-size: 20px;
+}
+
+
+.empty-state h3 {
+    font-size: 23px;
+
+    margin-bottom: 12px;
+}
+
+
+.empty-state p {
+    color: var(--text-muted);
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   CONTACT SECTION
+========================================================= */
+
+.contact-section {
+    background:
+        radial-gradient(
+            circle at 20% 50%,
+            rgba(
+                216,
+                155,
+                50,
+                0.08
+            ),
+            transparent 30%
+        ),
+        #080808;
+}
+
+
+.contact-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.2fr)
+        minmax(280px, 0.8fr);
+
+    gap: 100px;
+
+    align-items: center;
+}
+
+
+.contact-content {
+    max-width: 700px;
+}
+
+
+.contact-content h2 {
+    margin-bottom: 25px;
+}
+
+
+.contact-content > p:last-child {
+    color: var(--text-muted);
+
+    max-width: 580px;
+
+    font-size: 16px;
+}
+
+
+.contact-details {
+    padding:
+        35px;
+
+    border:
+        1px solid var(--border);
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.025
+        );
+}
+
+
+.contact-item {
+    padding:
+        18px 0;
+
+    border-bottom:
+        1px solid rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+}
+
+
+.contact-item:first-child {
+    padding-top: 0;
+}
+
+
+.contact-item span {
+    display: block;
+
+    color: var(--gold-light);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 6px;
+}
+
+
+.contact-item p {
+    color: var(--text-light);
+
+    font-size: 14px;
+}
+
+
+.contact-details .btn {
+    width: 100%;
+
+    margin-top: 25px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.site-footer {
+    padding:
+        45px 0;
+
+    background:
+        #050505;
+
+    border-top:
+        1px solid rgba(
+            255,
+            255,
+            255,
+            0.07
+        );
+}
+
+
+.footer-content {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+
+.footer-brand .logo-main {
+    font-size: 21px;
+}
+
+
+.footer-brand p {
+    color: var(--text-muted);
+
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    margin-top: 6px;
+}
+
+
+.copyright {
+    color: #666;
+
+    font-size: 11px;
+
+    text-align: right;
+}
+
+
+/* =========================================================
+   SELECTION
+========================================================= */
+
+::selection {
+    background:
+        var(--gold);
+
+    color:
+        #080808;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+::-webkit-scrollbar-track {
+    background:
+        #080808;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background:
+        var(--gold-dark);
+
+    border-radius: 10px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background:
+        var(--gold);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .main-nav {
+        gap: 18px;
+    }
+
+
+    .main-nav a {
+        font-size: 12px;
+    }
+
+
+    .about-grid {
+        gap: 50px;
+    }
+
+
+    .about-highlight {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .highlight-card {
+        min-height: 220px;
+    }
+
+
+    .highlight-number {
+        margin-bottom: 35px;
+    }
+
+
+    .pastor-grid {
+        gap: 50px;
+    }
+
+
+    .ministries-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .contact-grid {
+        gap: 50px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+========================================================= */
+
+@media (max-width: 760px) {
+
+    .container {
+        width:
+            min(
+                100% - 30px,
+                var(--container)
+            );
+    }
+
+
+    .nav-container {
+        min-height: 76px;
+    }
+
+
+    .menu-toggle {
+        display: flex;
+
+        position: relative;
+
+        z-index: 1002;
+    }
+
+
+    .main-nav {
+        position: fixed;
+
+        top: 0;
+        right: -100%;
+
+        width: min(
+            320px,
+            85%
+        );
+
+        height: 100vh;
+
+        padding:
+            110px 35px 40px;
+
+        display: flex;
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 5px;
+
+        background:
+            #0a0a0a;
+
+        border-left:
+            1px solid var(--border);
+
+        box-shadow:
+            -20px 0 60px
+            rgba(
+                0,
+                0,
+                0,
+                0.5
+            );
+
+        transition:
+            right 0.35s ease;
+
+        z-index: 1001;
+    }
+
+
+    .main-nav.active {
+        right: 0;
+    }
+
+
+    .main-nav a {
+        width: 100%;
+
+        padding:
+            14px 0;
+
+        font-size: 14px;
+
+        border-bottom:
+            1px solid rgba(
+                255,
+                255,
+                255,
+                0.05
+            );
+    }
+
+
+    .main-nav a::after {
+        display: none;
+    }
+
+
+    .menu-toggle.active span:nth-child(1) {
+        transform:
+            translateY(7px)
+            rotate(45deg);
+    }
+
+
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+
+    .menu-toggle.active span:nth-child(3) {
+        transform:
+            translateY(-7px)
+            rotate(-45deg);
+    }
+
+
+    /* HERO */
+
+    .hero-section {
+        min-height: 850px;
+    }
+
+
+    .hero-content {
+        padding-top: 100px;
+    }
+
+
+    .hero-content h1 {
+        font-size:
+            clamp(
+                48px,
+                15vw,
+                78px
+            );
+
+        letter-spacing:
+            -3px;
+    }
+
+
+    .hero-description {
+        font-size: 15px;
+
+        max-width: 500px;
+    }
+
+
+    .hero-buttons {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .hero-buttons .btn {
+        width: 100%;
+
+        max-width: 300px;
+    }
+
+
+    .hero-scroll {
+        display: none;
+    }
+
+
+    /* SECTIONS */
+
+    .section {
+        padding:
+            85px 0;
+    }
+
+
+    .section-heading {
+        margin-bottom: 40px;
+    }
+
+
+    .section-heading h2,
+    .pastor-content h2,
+    .contact-content h2 {
+        font-size:
+            clamp(
+                34px,
+                10vw,
+                50px
+            );
+    }
+
+
+    /* ABOUT */
+
+    .about-grid {
+        grid-template-columns:
+            1fr;
+
+        gap: 45px;
+    }
+
+
+    .about-content .lead-text {
+        font-size: 21px;
+    }
+
+
+    .about-highlight {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    /* PASTOR */
+
+    .pastor-grid {
+        grid-template-columns:
+            1fr;
+
+        gap: 55px;
+    }
+
+
+    .pastor-image-wrapper,
+    .pastor-image-placeholder {
+        min-height: 480px;
+    }
+
+
+    /* MINISTRIES */
+
+    .ministries-grid {
+        grid-template-columns:
+            1fr;
+
+        gap: 15px;
+    }
+
+
+    .ministry-card {
+        min-height: 270px;
+    }
+
+
+    /* CONTACT */
+
+    .contact-grid {
+        grid-template-columns:
+            1fr;
+
+        gap: 45px;
+    }
+
+
+    /* FOOTER */
+
+    .footer-content {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .copyright {
+        text-align: left;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .logo-main {
+        font-size: 23px;
+
+        letter-spacing: 4px;
+    }
+
+
+    .logo-sub {
+        font-size: 6px;
+
+        letter-spacing: 1.7px;
+    }
+
+
+    .hero-section {
+        min-height: 780px;
+    }
+
+
+    .hero-content h1 {
+        font-size: 48px;
+    }
+
+
+    .hero-description {
+        font-size: 14px;
+    }
+
+
+    .btn {
+        min-height: 48px;
+
+        padding:
+            0 19px;
+
+        font-size: 10px;
+    }
+
+
+    .pastor-image-wrapper,
+    .pastor-image-placeholder {
+        min-height: 390px;
+    }
+
+
+    .contact-details {
+        padding: 25px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+
+    *,
+    *::before,
+    *::after {
+        transition:
+            none !important;
+
+        animation:
+            none !important;
+    }
+
+   }
 }
