@@ -1201,27 +1201,207 @@
 
     }
 
+/* =========================
+   ADD EVENT
+========================= */
 
-    /* =========================
-       ADD EVENT
-    ========================= */
+async function addEvent() {
 
-    async function addEvent() {
+  const input =
+    document.getElementById("eventTitle");
 
-      const input =
-        document.getElementById(
-          "eventTitle"
-        );
+  const title =
+    input.value.trim();
+
+  clearEventMessage();
+
+  if (!title) {
+
+    showEventMessage(
+      "Please enter an event title.",
+      "error"
+    );
+
+    return;
+  }
+
+  try {
+
+    const { error } =
+      await supabaseClient
+        .from("Events")
+        .insert([
+          {
+            title: title
+          }
+        ]);
+
+    if (error) {
+
+      console.error(
+        "Add event error:",
+        error
+      );
+
+      showEventMessage(
+        error.message,
+        "error"
+      );
+
+      return;
+    }
+
+    input.value = "";
+
+    showEventMessage(
+      "Event added successfully.",
+      "success"
+    );
+
+    await loadEvents();
+
+  } catch (error) {
+
+    console.error(error);
+
+    showEventMessage(
+      "Unable to add event.",
+      "error"
+    );
+
+  }
+
+}
 
 
-      const title =
-        input.value.trim();
+/* =========================
+   DELETE EVENT
+========================= */
+
+async function deleteEvent(eventId) {
+
+  const confirmed =
+    confirm(
+      "Are you sure you want to delete this event?"
+    );
+
+  if (!confirmed) {
+    return;
+  }
+
+  try {
+
+    const { error } =
+      await supabaseClient
+        .from("Events")
+        .delete()
+        .eq("id", eventId);
+
+    if (error) {
+
+      console.error(
+        "Delete event error:",
+        error
+      );
+
+      showEventMessage(
+        error.message,
+        "error"
+      );
+
+      return;
+    }
+
+    showEventMessage(
+      "Event deleted successfully.",
+      "success"
+    );
+
+    await loadEvents();
+
+  } catch (error) {
+
+    console.error(error);
+
+    showEventMessage(
+      "Unable to delete event.",
+      "error"
+    );
+
+  }
+
+}
 
 
-      clearEventMessage();
+/* =========================
+   EVENT MESSAGES
+========================= */
+
+function showEventMessage(message, type) {
+
+  const element =
+    document.getElementById("eventMessage");
+
+  element.textContent = message;
+
+  element.className =
+    "event-message " +
+    (
+      type === "success"
+        ? "success-message"
+        : "error-message"
+    );
+
+}
 
 
-      if (!title) {
+function clearEventMessage() {
 
-        showEventMessage(
-          "Please enter an ev
+  const element =
+    document.getElementById("eventMessage");
+
+  element.textContent = "";
+
+  element.className =
+    "event-message";
+
+}
+
+
+/* =========================
+   CHECK EXISTING SESSION
+========================= */
+
+async function checkSession() {
+
+  const { data } =
+    await supabaseClient.auth.getSession();
+
+  if (data.session) {
+
+    document
+      .getElementById("loginPage")
+      .style.display = "none";
+
+    document
+      .getElementById("dashboard")
+      .style.display = "block";
+
+    loadEvents();
+
+  }
+
+}
+
+
+/* =========================
+   START SESSION CHECK
+========================= */
+
+checkSession();
+  </script>
+
+</body>
+  </html>
+  
+    
