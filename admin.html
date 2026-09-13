@@ -1501,22 +1501,32 @@ function cancelSermonEdit() {
 }
   
         <!-- PUBLISH -->
+<td>
 
-        <label
-          style="display:flex; align-items:center; gap:10px; cursor:pointer;"
-        >
+  <button
+    class="primary-btn"
+    onclick="editSermon('${sermon.id}')"
+    style="margin-right:6px;"
+  >
+    Edit
+  </button>
 
-          <input
-            type="checkbox"
-            id="sermonPublished"
-          >
+  <button
+    class="primary-btn"
+    onclick="toggleSermonPublished('${sermon.id}', ${sermon.published})"
+    style="margin-right:6px;"
+  >
+    ${sermon.published ? "Unpublish" : "Publish"}
+  </button>
 
-          <span>
-            Publish this sermon immediately
-          </span>
+  <button
+    class="delete-btn"
+    onclick="deleteSermon('${sermon.id}')"
+  >
+    Delete
+  </button>
 
-        </label>
-
+    </td>
 
         <!-- SAVE -->
 
