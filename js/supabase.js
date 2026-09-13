@@ -145,7 +145,75 @@ async function loadRegistrations() {
     }
   }
 }
+// =========================================================
+// PUBLIC EVENT REGISTRATION
+// =========================================================
 
+const eventRegistrationForm =
+  document.getElementById("eventRegistrationForm");
+
+if (eventRegistrationForm) {
+
+  eventRegistrationForm.addEventListener("submit", async function (e) {
+
+    e.preventDefault();
+
+    const name =
+      document.getElementById("registrationName").value.trim();
+
+    const email =
+      document.getElementById("registrationEmail").value.trim();
+
+    const eventName =
+      document.getElementById("registrationEvent").value.trim();
+
+    const message =
+      document.getElementById("registrationFormMessage");
+
+    if (!name || !email || !eventName) {
+      message.textContent =
+        "Please fill in all the required fields.";
+
+      return;
+    }
+
+    message.textContent = "Submitting registration...";
+
+    try {
+
+      const { error } = await supabase
+        .from("event_registrations")
+        .insert([
+          {
+            name: name,
+            email: email,
+            event_name: eventName
+          }
+        ]);
+
+      if (error) {
+        throw error;
+      }
+
+      message.textContent =
+        "Registration successful! We look forward to seeing you.";
+
+      eventRegistrationForm.reset();
+
+    } catch (error) {
+
+      console.error(
+        "Registration error:",
+        error
+      );
+
+      message.textContent =
+        "Registration failed. Please try again.";
+    }
+
+  });
+
+         }
 
 // =========================================================
 // DELETE REGISTRATION
