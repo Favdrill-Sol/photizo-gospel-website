@@ -974,108 +974,147 @@ loadRegistrations();
 
     <!-- ADD SERMON FORM -->
 
-    <div class="content-box">
+    <!-- SERMON FORM -->
 
-      <h3 style="margin-bottom:20px;">
-        Add New Sermon
-      </h3>
+<div class="content-box">
 
+  <h3 id="sermonFormTitle" style="margin-bottom:20px;">
+    Add New Sermon
+  </h3>
 
-      <div style="display:grid; gap:15px;">
+  <!-- Hidden ID used when editing -->
+  <input
+    type="hidden"
+    id="sermonId"
+  >
 
-        <!-- TITLE -->
+  <div style="display:grid; gap:15px;">
 
-        <input
-          type="text"
-          id="sermonTitle"
-          placeholder="Sermon title"
-          style="padding:13px; border:1px solid #d1d5db; border-radius:8px; font-size:15px;"
-        >
+    <input
+      type="text"
+      id="sermonTitle"
+      placeholder="Sermon title"
+      style="padding:13px; border:1px solid #d1d5db; border-radius:8px; font-size:15px;"
+    >
 
+    <input
+      type="text"
+      id="sermonSpeaker"
+      placeholder="Speaker / Pastor"
+      style="padding:13px; border:1px solid #d1d5db; border-radius:8px; font-size:15px;"
+    >
 
-        <!-- SPEAKER -->
+    <input
+      type="date"
+      id="sermonDate"
+      style="padding:13px; border:1px solid #d1d5db; border-radius:8px; font-size:15px;"
+    >
 
-        <input
-          type="text"
-          id="sermonSpeaker"
-          placeholder="Speaker / Pastor"
-          style="padding:13px; border:1px solid #d1d5db; border-radius:8px; font-size:15px;"
-        >
-
-
-        <!-- DATE -->
-
-        <input
-          type="date"
-          id="sermonDate"
-          style="padding:13px; border:1px solid #d1d5db; border-radius:8px; font-size:15px;"
-        >
-
-
-        <!-- DESCRIPTION -->
-
-        <textarea
-          id="sermonDescription"
-          placeholder="Sermon description"
-          rows="5"
-          style="padding:13px; border:1px solid #d1d5db; border-radius:8px; font-size:15px; resize:vertical;"
-        ></textarea>
+    <textarea
+      id="sermonDescription"
+      placeholder="Sermon description"
+      rows="5"
+      style="padding:13px; border:1px solid #d1d5db; border-radius:8px; font-size:15px; resize:vertical;"
+    ></textarea>
 
 
-        <!-- AUDIO -->
+    <!-- AUDIO -->
 
-        <div>
+    <div>
 
-          <label
-            for="sermonAudio"
-            style="display:block; margin-bottom:8px; font-weight:bold;"
-          >
-            Sermon Audio
-          </label>
+      <label
+        for="sermonAudio"
+        style="display:block; margin-bottom:8px; font-weight:bold;"
+      >
+        Sermon Audio
+      </label>
 
-          <input
-            type="file"
-            id="sermonAudio"
-            accept="audio/*"
-            style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px;"
-          >
+      <input
+        type="file"
+        id="sermonAudio"
+        accept="audio/*"
+        style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px;"
+      >
 
-          <small
-            style="display:block; margin-top:6px; color:#6b7280;"
-          >
-            Upload the sermon audio file.
-          </small>
+      <small style="display:block; margin-top:6px; color:#6b7280;">
+        Leave empty when editing if you don't want to replace the audio.
+      </small>
 
-        </div>
+    </div>
 
 
-        <!-- IMAGE -->
+    <!-- IMAGE -->
 
-        <div>
+    <div>
 
-          <label
-            for="sermonImage"
-            style="display:block; margin-bottom:8px; font-weight:bold;"
-          >
-            Sermon Image
-          </label>
+      <label
+        for="sermonImage"
+        style="display:block; margin-bottom:8px; font-weight:bold;"
+      >
+        Sermon Image
+      </label>
 
-          <input
-            type="file"
-            id="sermonImage"
-            accept="image/*"
-            style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px;"
-          >
+      <input
+        type="file"
+        id="sermonImage"
+        accept="image/*"
+        style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px;"
+      >
 
-          <small
-            style="display:block; margin-top:6px; color:#6b7280;"
-          >
-            Optional sermon cover image.
-          </small>
+      <small style="display:block; margin-top:6px; color:#6b7280;">
+        Optional. Select a new image when editing to replace the current one.
+      </small>
 
-        </div>
+    </div>
 
 
+    <!-- PUBLISH -->
+
+    <label
+      style="display:flex; align-items:center; gap:10px; cursor:pointer;"
+    >
+
+      <input
+        type="checkbox"
+        id="sermonPublished"
+      >
+
+      <span>
+        Publish this sermon
+      </span>
+
+    </label>
+
+
+    <!-- BUTTONS -->
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+
+      <button
+        type="button"
+        id="saveSermonButton"
+        class="primary-btn"
+        onclick="saveSermon()"
+      >
+        Upload & Save Sermon
+      </button>
+
+      <button
+        type="button"
+        id="cancelEditButton"
+        class="primary-btn"
+        onclick="cancelSermonEdit()"
+        style="display:none; background:#6b7280;"
+      >
+        Cancel Edit
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+  
         <!-- PUBLISH -->
 
         <label
