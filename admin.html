@@ -929,23 +929,231 @@ loadRegistrations();
 
       <!-- SERMONS -->
 
-      <section
-        id="sermons"
-        class="section"
+      <!-- SERMONS -->
+
+<section
+  id="sermons"
+  class="section"
+>
+
+  <div class="content-box">
+
+    <div class="section-header">
+
+      <div>
+        <h2>Sermon Management</h2>
+
+        <p>
+          Upload, manage and publish sermons for the
+          Photizo Gospel Mission International website.
+        </p>
+      </div>
+
+      <button
+        class="primary-btn"
+        onclick="loadSermons()"
       >
+        Refresh
+      </button>
 
-        <div class="content-box">
+    </div>
 
-          <h2>Sermons</h2>
 
-          <p>
-            Sermon management will be connected
-            to the Sermons table next.
-          </p>
+    <!-- SERMON MESSAGE -->
+
+    <div
+      id="sermonMessage"
+      class="event-message"
+    ></div>
+
+
+    <!-- ADD SERMON FORM -->
+
+    <div class="content-box">
+
+      <h3 style="margin-bottom:20px;">
+        Add New Sermon
+      </h3>
+
+
+      <div style="display:grid; gap:15px;">
+
+        <!-- TITLE -->
+
+        <input
+          type="text"
+          id="sermonTitle"
+          placeholder="Sermon title"
+          style="padding:13px; border:1px solid #d1d5db; border-radius:8px; font-size:15px;"
+        >
+
+
+        <!-- SPEAKER -->
+
+        <input
+          type="text"
+          id="sermonSpeaker"
+          placeholder="Speaker / Pastor"
+          style="padding:13px; border:1px solid #d1d5db; border-radius:8px; font-size:15px;"
+        >
+
+
+        <!-- DATE -->
+
+        <input
+          type="date"
+          id="sermonDate"
+          style="padding:13px; border:1px solid #d1d5db; border-radius:8px; font-size:15px;"
+        >
+
+
+        <!-- DESCRIPTION -->
+
+        <textarea
+          id="sermonDescription"
+          placeholder="Sermon description"
+          rows="5"
+          style="padding:13px; border:1px solid #d1d5db; border-radius:8px; font-size:15px; resize:vertical;"
+        ></textarea>
+
+
+        <!-- AUDIO -->
+
+        <div>
+
+          <label
+            for="sermonAudio"
+            style="display:block; margin-bottom:8px; font-weight:bold;"
+          >
+            Sermon Audio
+          </label>
+
+          <input
+            type="file"
+            id="sermonAudio"
+            accept="audio/*"
+            style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px;"
+          >
+
+          <small
+            style="display:block; margin-top:6px; color:#6b7280;"
+          >
+            Upload the sermon audio file.
+          </small>
 
         </div>
 
-      </section>
+
+        <!-- IMAGE -->
+
+        <div>
+
+          <label
+            for="sermonImage"
+            style="display:block; margin-bottom:8px; font-weight:bold;"
+          >
+            Sermon Image
+          </label>
+
+          <input
+            type="file"
+            id="sermonImage"
+            accept="image/*"
+            style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px;"
+          >
+
+          <small
+            style="display:block; margin-top:6px; color:#6b7280;"
+          >
+            Optional sermon cover image.
+          </small>
+
+        </div>
+
+
+        <!-- PUBLISH -->
+
+        <label
+          style="display:flex; align-items:center; gap:10px; cursor:pointer;"
+        >
+
+          <input
+            type="checkbox"
+            id="sermonPublished"
+          >
+
+          <span>
+            Publish this sermon immediately
+          </span>
+
+        </label>
+
+
+        <!-- SAVE -->
+
+        <button
+          type="button"
+          class="primary-btn"
+          onclick="addSermon()"
+        >
+          Upload & Save Sermon
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- SERMON LIST -->
+
+    <div class="content-box">
+
+      <h3 style="margin-bottom:20px;">
+        Existing Sermons
+      </h3>
+
+
+      <div class="events-table-wrapper">
+
+        <table class="events-table">
+
+          <thead>
+
+            <tr>
+              <th>Title</th>
+              <th>Speaker</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+
+          </thead>
+
+
+          <tbody id="sermonsTableBody">
+
+            <tr>
+
+              <td
+                colspan="5"
+                class="loading-message"
+              >
+                Loading sermons...
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+          </section>
 
 
       <!-- ADMIN -->
