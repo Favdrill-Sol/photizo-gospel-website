@@ -1982,3 +1982,15 @@ MOBILE NAVIGATION
 }
 
    }
+.contact-item a {
+    position: relative;
+    z-index: 10;
+    display: inline-block;
+    color: var(--gold-light);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.contact-item a:hover {
+    text-decoration: underline;
+   }
