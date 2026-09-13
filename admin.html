@@ -1114,6 +1114,391 @@ loadRegistrations();
   </div>
 
 </div>
+    /* =========================================================
+   SAVE SERMON
+   ADD OR EDIT
+========================================================= */
+
+async function saveSermon() {
+
+  const sermonId =
+    document.getElementById("sermonId").value.trim();
+
+  if (sermonId) {
+
+    await updateSermon(sermonId);
+
+  } else {
+
+    await addSermon();
+
+  }
+
+}
+
+
+/* =========================================================
+   EDIT SERMON
+========================================================= */
+
+async function editSermon(sermonId) {
+
+  try {
+
+    const { data: sermon, error } =
+      await supabaseClient
+        .from("Sermons")
+        .select(`
+          id,
+          title,
+          speaker,
+          description,
+          sermon_date,
+          audio_path,
+          image_path,
+          published
+        `)
+        .eq("id", sermonId)
+        .maybeSingle();
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    if (!sermon) {
+
+      showSermonMessage(
+        "Sermon not found.",
+        "error"
+      );
+
+      return;
+    }
+
+
+    document.getElementById("sermonId").value =
+      sermon.id;
+
+    document.getElementById("sermonTitle").value =
+      sermon.title || "";
+
+    document.getElementById("sermonSpeaker").value =
+      sermon.speaker || "";
+
+    document.getElementById("sermonDate").value =
+      sermon.sermon_date || "";
+
+    document.getElementById("sermonDescription").value =
+      sermon.description || "";
+
+    document.getElementById("sermonPublished").checked =
+      sermon.published === true;
+
+
+    document.getElementById("sermonFormTitle").textContent =
+      "Edit Sermon";
+
+    document.getElementById("saveSermonButton").textContent =
+      "Update Sermon";
+
+    document.getElementById("cancelEditButton").style.display =
+      "inline-block";
+
+
+    document.getElementById("sermonTitle").scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
+
+  } catch (error) {
+
+    console.error(
+      "Edit sermon error:",
+      error
+    );
+
+    showSermonMessage(
+      "Unable to load sermon for editing.",
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   UPDATE SERMON
+========================================================= */
+
+async function updateSermon(sermonId) {
+
+  const title =
+    document.getElementById("sermonTitle").value.trim();
+
+  const speaker =
+    document.getElementById("sermonSpeaker").value.trim();
+
+  const sermonDate =
+    document.getElementById("sermonDate").value;
+
+  const description =
+    document.getElementById("sermonDescription").value.trim();
+
+  const audioFile =
+    document.getElementById("sermonAudio").files[0];
+
+  const imageFile =
+    document.getElementById("sermonImage").files[0];
+
+  const published =
+    document.getElementById("sermonPublished").checked;
+
+
+  if (!title) {
+
+    showSermonMessage(
+      "Please enter the sermon title.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  try {
+
+    showSermonMessage(
+      "Updating sermon...",
+      "success"
+    );
+
+
+    /* Get existing sermon */
+
+    const { data: existing, error: fetchError } =
+      await supabaseClient
+        .from("Sermons")
+        .select(
+          "audio_path, image_path"
+        )
+        .eq("id", sermonId)
+        .maybeSingle();
+
+
+    if (fetchError) {
+      throw fetchError;
+    }
+
+
+    let audioPath =
+      existing?.audio_path || null;
+
+    let imagePath =
+      existing?.image_path || null;
+
+
+    /* =====================================================
+       REPLACE AUDIO IF NEW FILE SELECTED
+    ===================================================== */
+
+    if (audioFile) {
+
+      const audioFileName =
+        Date.now() + "-" +
+        audioFile.name.replace(
+          /[^a-zA-Z0-9._-]/g,
+          "-"
+        );
+
+
+      const newAudioPath =
+        "audio/" + audioFileName;
+
+
+      const { error: uploadError } =
+        await supabaseClient
+          .storage
+          .from("sermon-media")
+          .upload(
+            newAudioPath,
+            audioFile,
+            {
+              cacheControl: "3600",
+              upsert: false
+            }
+          );
+
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+
+      audioPath =
+        newAudioPath;
+
+
+      if (existing?.audio_path) {
+
+        await supabaseClient
+          .storage
+          .from("sermon-media")
+          .remove([
+            existing.audio_path
+          ]);
+
+      }
+
+    }
+
+
+    /* =====================================================
+       REPLACE IMAGE IF NEW FILE SELECTED
+    ===================================================== */
+
+    if (imageFile) {
+
+      const imageFileName =
+        Date.now() + "-" +
+        imageFile.name.replace(
+          /[^a-zA-Z0-9._-]/g,
+          "-"
+        );
+
+
+      const newImagePath =
+        "images/" + imageFileName;
+
+
+      const { error: imageError } =
+        await supabaseClient
+          .storage
+          .from("sermon-images")
+          .upload(
+            newImagePath,
+            imageFile,
+            {
+              cacheControl: "3600",
+              upsert: false
+            }
+          );
+
+
+      if (imageError) {
+        throw imageError;
+      }
+
+
+      imagePath =
+        newImagePath;
+
+
+      if (existing?.image_path) {
+
+        await supabaseClient
+          .storage
+          .from("sermon-images")
+          .remove([
+            existing.image_path
+          ]);
+
+      }
+
+    }
+
+
+    /* =====================================================
+       UPDATE DATABASE
+    ===================================================== */
+
+    const { error: updateError } =
+      await supabaseClient
+        .from("Sermons")
+        .update({
+          title: title,
+          speaker: speaker || null,
+          description: description || null,
+          sermon_date: sermonDate || null,
+          audio_path: audioPath,
+          image_path: imagePath,
+          published: published,
+          updated_at: new Date().toISOString()
+        })
+        .eq("id", sermonId);
+
+
+    if (updateError) {
+      throw updateError;
+    }
+
+
+    showSermonMessage(
+      "Sermon updated successfully.",
+      "success"
+    );
+
+
+    cancelSermonEdit();
+
+    await loadSermons();
+
+
+  } catch (error) {
+
+    console.error(
+      "Update sermon error:",
+      error
+    );
+
+    showSermonMessage(
+      "Unable to update sermon: " +
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   CANCEL EDIT
+========================================================= */
+
+function cancelSermonEdit() {
+
+  document.getElementById("sermonId").value = "";
+
+  document.getElementById("sermonTitle").value = "";
+
+  document.getElementById("sermonSpeaker").value = "";
+
+  document.getElementById("sermonDate").value = "";
+
+  document.getElementById("sermonDescription").value = "";
+
+  document.getElementById("sermonAudio").value = "";
+
+  document.getElementById("sermonImage").value = "";
+
+  document.getElementById("sermonPublished").checked =
+    false;
+
+
+  document.getElementById("sermonFormTitle").textContent =
+    "Add New Sermon";
+
+  document.getElementById("saveSermonButton").textContent =
+    "Upload & Save Sermon";
+
+  document.getElementById("cancelEditButton").style.display =
+    "none";
+
+}
   
         <!-- PUBLISH -->
 
