@@ -1776,6 +1776,620 @@ function clearEventMessage() {
     "event-message";
 
 }
+    /* =========================================================
+   SERMON MANAGEMENT
+========================================================= */
+
+async function addSermon() {
+
+  const title =
+    document.getElementById("sermonTitle").value.trim();
+
+  const speaker =
+    document.getElementById("sermonSpeaker").value.trim();
+
+  const sermonDate =
+    document.getElementById("sermonDate").value;
+
+  const description =
+    document.getElementById("sermonDescription").value.trim();
+
+  const audioFile =
+    document.getElementById("sermonAudio").files[0];
+
+  const imageFile =
+    document.getElementById("sermonImage").files[0];
+
+  const published =
+    document.getElementById("sermonPublished").checked;
+
+  const message =
+    document.getElementById("sermonMessage");
+
+
+  message.textContent = "";
+  message.className = "event-message";
+
+
+  if (!title) {
+    showSermonMessage(
+      "Please enter the sermon title.",
+      "error"
+    );
+    return;
+  }
+
+
+  if (!audioFile) {
+    showSermonMessage(
+      "Please select a sermon audio file.",
+      "error"
+    );
+    return;
+  }
+
+
+  try {
+
+    showSermonMessage(
+      "Uploading sermon audio...",
+      "success"
+    );
+
+
+    /* =====================================================
+       UPLOAD AUDIO
+    ===================================================== */
+
+    const audioFileName =
+      Date.now() + "-" +
+      audioFile.name.replace(
+        /[^a-zA-Z0-9._-]/g,
+        "-"
+      );
+
+
+    const audioPath =
+      "audio/" + audioFileName;
+
+
+    const { error: audioError } =
+      await supabaseClient
+        .storage
+        .from("sermon-media")
+        .upload(
+          audioPath,
+          audioFile,
+          {
+            cacheControl: "3600",
+            upsert: false
+          }
+        );
+
+
+    if (audioError) {
+
+      console.error(
+        "Audio upload error:",
+        audioError
+      );
+
+      showSermonMessage(
+        "Unable to upload sermon audio: " +
+        audioError.message,
+        "error"
+      );
+
+      return;
+    }
+
+
+    /* =====================================================
+       UPLOAD IMAGE IF PROVIDED
+    ===================================================== */
+
+    let imagePath = null;
+
+
+    if (imageFile) {
+
+      showSermonMessage(
+        "Uploading sermon image...",
+        "success"
+      );
+
+
+      const imageFileName =
+        Date.now() + "-" +
+        imageFile.name.replace(
+          /[^a-zA-Z0-9._-]/g,
+          "-"
+        );
+
+
+      imagePath =
+        "images/" + imageFileName;
+
+
+      const { error: imageError } =
+        await supabaseClient
+          .storage
+          .from("sermon-images")
+          .upload(
+            imagePath,
+            imageFile,
+            {
+              cacheControl: "3600",
+              upsert: false
+            }
+          );
+
+
+      if (imageError) {
+
+        console.error(
+          "Image upload error:",
+          imageError
+        );
+
+        showSermonMessage(
+          "Audio uploaded, but image upload failed: " +
+          imageError.message,
+          "error"
+        );
+
+        return;
+      }
+
+    }
+
+
+    /* =====================================================
+       SAVE SERMON TO DATABASE
+    ===================================================== */
+
+    showSermonMessage(
+      "Saving sermon...",
+      "success"
+    );
+
+
+    const { error: sermonError } =
+      await supabaseClient
+        .from("Sermons")
+        .insert([
+          {
+            title: title,
+            speaker: speaker || null,
+            description: description || null,
+            sermon_date: sermonDate || null,
+            audio_path: audioPath,
+            image_path: imagePath,
+            published: published
+          }
+        ]);
+
+
+    if (sermonError) {
+
+      console.error(
+        "Sermon database error:",
+        sermonError
+      );
+
+      showSermonMessage(
+        "Sermon upload failed: " +
+        sermonError.message,
+        "error"
+      );
+
+      return;
+    }
+
+
+    /* =====================================================
+       SUCCESS
+    ===================================================== */
+
+    showSermonMessage(
+      "Sermon uploaded successfully.",
+      "success"
+    );
+
+
+    document.getElementById(
+      "sermonTitle"
+    ).value = "";
+
+    document.getElementById(
+      "sermonSpeaker"
+    ).value = "";
+
+    document.getElementById(
+      "sermonDate"
+    ).value = "";
+
+    document.getElementById(
+      "sermonDescription"
+    ).value = "";
+
+    document.getElementById(
+      "sermonAudio"
+    ).value = "";
+
+    document.getElementById(
+      "sermonImage"
+    ).value = "";
+
+    document.getElementById(
+      "sermonPublished"
+    ).checked = false;
+
+
+    await loadSermons();
+
+
+  } catch (error) {
+
+    console.error(
+      "Unexpected sermon error:",
+      error
+    );
+
+    showSermonMessage(
+      "Something went wrong while uploading the sermon.",
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   LOAD SERMONS
+========================================================= */
+
+async function loadSermons() {
+
+  const tableBody =
+    document.getElementById(
+      "sermonsTableBody"
+    );
+
+
+  if (!tableBody) {
+    return;
+  }
+
+
+  tableBody.innerHTML = `
+    <tr>
+      <td colspan="5" class="loading-message">
+        Loading sermons...
+      </td>
+    </tr>
+  `;
+
+
+  try {
+
+    const { data, error } =
+      await supabaseClient
+        .from("Sermons")
+        .select(
+          "id, title, speaker, sermon_date, published"
+        )
+        .order(
+          "created_at",
+          {
+            ascending: false
+          }
+        );
+
+
+    if (error) {
+
+      console.error(
+        "Load sermons error:",
+        error
+      );
+
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="5" class="empty-message">
+            Unable to load sermons.
+          </td>
+        </tr>
+      `;
+
+      return;
+    }
+
+
+    if (!data || data.length === 0) {
+
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="5" class="empty-message">
+            No sermons found.
+          </td>
+        </tr>
+      `;
+
+      return;
+    }
+
+
+    tableBody.innerHTML = "";
+
+
+    data.forEach(sermon => {
+
+      const row =
+        document.createElement("tr");
+
+
+      const status =
+        sermon.published
+          ? "Published"
+          : "Unpublished";
+
+
+      row.innerHTML = `
+
+        <td>
+          ${escapeHtml(sermon.title || "")}
+        </td>
+
+        <td>
+          ${escapeHtml(sermon.speaker || "")}
+        </td>
+
+        <td>
+          ${sermon.sermon_date || ""}
+        </td>
+
+        <td>
+          ${status}
+        </td>
+
+        <td>
+
+          <button
+            class="primary-btn"
+            onclick="toggleSermonPublished('${sermon.id}', ${sermon.published})"
+            style="margin-right:6px;"
+          >
+            ${sermon.published ? "Unpublish" : "Publish"}
+          </button>
+
+          <button
+            class="delete-btn"
+            onclick="deleteSermon('${sermon.id}')"
+          >
+            Delete
+          </button>
+
+        </td>
+
+      `;
+
+
+      tableBody.appendChild(row);
+
+    });
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    tableBody.innerHTML = `
+      <tr>
+        <td colspan="5" class="empty-message">
+          Something went wrong while loading sermons.
+        </td>
+      </tr>
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   PUBLISH / UNPUBLISH
+========================================================= */
+
+async function toggleSermonPublished(
+  sermonId,
+  currentStatus
+) {
+
+  const newStatus =
+    !currentStatus;
+
+
+  const { error } =
+    await supabaseClient
+      .from("Sermons")
+      .update({
+        published: newStatus,
+        updated_at: new Date().toISOString()
+      })
+      .eq("id", sermonId);
+
+
+  if (error) {
+
+    console.error(
+      "Publish status error:",
+      error
+    );
+
+    showSermonMessage(
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+
+  showSermonMessage(
+    newStatus
+      ? "Sermon published successfully."
+      : "Sermon unpublished successfully.",
+    "success"
+  );
+
+
+  await loadSermons();
+
+}
+
+
+/* =========================================================
+   DELETE SERMON
+========================================================= */
+
+async function deleteSermon(
+  sermonId
+) {
+
+  const confirmed =
+    confirm(
+      "Are you sure you want to delete this sermon?"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  const { data: sermon } =
+    await supabaseClient
+      .from("Sermons")
+      .select(
+        "audio_path, image_path"
+      )
+      .eq("id", sermonId)
+      .maybeSingle();
+
+
+  const { error } =
+    await supabaseClient
+      .from("Sermons")
+      .delete()
+      .eq("id", sermonId);
+
+
+  if (error) {
+
+    console.error(
+      "Delete sermon error:",
+      error
+    );
+
+    showSermonMessage(
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+
+  /* Delete audio file */
+
+  if (sermon && sermon.audio_path) {
+
+    await supabaseClient
+      .storage
+      .from("sermon-media")
+      .remove([
+        sermon.audio_path
+      ]);
+
+  }
+
+
+  /* Delete image file */
+
+  if (sermon && sermon.image_path) {
+
+    await supabaseClient
+      .storage
+      .from("sermon-images")
+      .remove([
+        sermon.image_path
+      ]);
+
+  }
+
+
+  showSermonMessage(
+    "Sermon deleted successfully.",
+    "success"
+  );
+
+
+  await loadSermons();
+
+}
+
+
+/* =========================================================
+   SERMON MESSAGE
+========================================================= */
+
+function showSermonMessage(
+  message,
+  type
+) {
+
+  const element =
+    document.getElementById(
+      "sermonMessage"
+    );
+
+
+  if (!element) {
+    return;
+  }
+
+
+  element.textContent =
+    message;
+
+
+  element.className =
+    "event-message " +
+    (
+      type === "success"
+        ? "success-message"
+        : "error-message"
+    );
+
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
+
+function escapeHtml(value) {
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+  }
 
 
 /* =========================
