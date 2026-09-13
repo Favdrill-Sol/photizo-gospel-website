@@ -550,6 +550,94 @@
                     class="events-container"
                     id="eventsContainer"
                 >
+                    <!-- EVENT REGISTRATION FORM -->
+
+<div class="event-registration-box" id="eventRegistrationBox">
+
+    <div class="section-heading centered">
+
+        <p class="section-label">
+            EVENT REGISTRATION
+        </p>
+
+        <h3>
+            Register for an Event
+        </h3>
+
+        <p>
+            Fill in your details below to register.
+        </p>
+
+    </div>
+
+    <form id="eventRegistrationForm">
+
+        <div class="form-group">
+
+            <label for="registrationName">
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="registrationName"
+                name="name"
+                placeholder="Enter your full name"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="registrationEmail">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="registrationEmail"
+                name="email"
+                placeholder="Enter your email"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="registrationEvent">
+                Select Event
+            </label>
+
+            <input
+                type="text"
+                id="registrationEvent"
+                name="event_name"
+                placeholder="Enter event name"
+                required
+            >
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="primary-btn"
+        >
+            Register
+        </button>
+
+        <div
+            id="registrationFormMessage"
+            class="event-message"
+        ></div>
+
+    </form>
+
+                </div>
 
                     <div class="empty-state">
 
