@@ -1,7 +1,12 @@
 /* =========================================================
    PHOTIZO GOSPEL MISSION INTERNATIONAL
    MAIN WEBSITE STYLES
-   COMPLETE REPLACEMENT STYLESHEET
+   COMPLETE CLEAN VERSION
+========================================================= */
+
+
+/* =========================================================
+   ROOT VARIABLES
 ========================================================= */
 
 :root {
@@ -35,9 +40,11 @@
     box-sizing: border-box;
 }
 
+
 html {
     scroll-behavior: smooth;
 }
+
 
 body {
     font-family:
@@ -49,13 +56,16 @@ body {
     color: var(--white);
 
     line-height: 1.7;
+
     overflow-x: hidden;
 }
+
 
 a {
     color: inherit;
     text-decoration: none;
 }
+
 
 button,
 input,
@@ -63,6 +73,7 @@ textarea,
 select {
     font-family: inherit;
 }
+
 
 img {
     max-width: 100%;
@@ -76,11 +87,27 @@ img {
 
 .container {
     width: min(
-        100% - 40px,
+        calc(100% - 40px),
         var(--container)
     );
 
     margin-inline: auto;
+}
+
+
+/* =========================================================
+   OLD / DUPLICATE NAVIGATION HIDDEN
+========================================================= */
+
+/*
+   The HTML currently contains an extra .site-nav
+   before the main header.
+
+   We hide it so there is only ONE navigation bar.
+*/
+
+.site-nav {
+    display: none;
 }
 
 
@@ -90,10 +117,12 @@ img {
 
 .site-header {
     position: fixed;
+
     top: 0;
     left: 0;
 
     width: 100%;
+
     z-index: 1000;
 
     background:
@@ -109,8 +138,10 @@ img {
         backdrop-filter var(--transition);
 }
 
+
 .site-header.scrolled {
-    background: rgba(8, 8, 8, 0.96);
+    background:
+        rgba(8, 8, 8, 0.96);
 
     backdrop-filter: blur(12px);
 
@@ -118,11 +149,18 @@ img {
         1px solid var(--border);
 }
 
+
+/* =========================================================
+   HEADER CONTAINER
+========================================================= */
+
 .site-header .nav-container {
     min-height: 90px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     gap: 30px;
@@ -135,28 +173,35 @@ img {
 
 .logo {
     display: flex;
+
     flex-direction: column;
 
     line-height: 1;
+
     flex-shrink: 0;
 }
+
 
 .logo-main {
     color: var(--gold-light);
 
     font-size: 27px;
+
     font-weight: 900;
 
     letter-spacing: 5px;
 }
 
+
 .logo-sub {
     color: var(--white);
 
     font-size: 7px;
+
     letter-spacing: 2.4px;
 
     margin-top: 6px;
+
     opacity: 0.8;
 }
 
@@ -167,9 +212,12 @@ img {
 
 .main-nav {
     display: flex;
+
     align-items: center;
+
     gap: 28px;
 }
+
 
 .main-nav a {
     position: relative;
@@ -177,7 +225,9 @@ img {
     color: var(--text-light);
 
     font-size: 13px;
+
     font-weight: 600;
+
     letter-spacing: 0.5px;
 
     padding: 8px 0;
@@ -185,6 +235,7 @@ img {
     transition:
         color var(--transition);
 }
+
 
 .main-nav a::after {
     content: "";
@@ -203,9 +254,11 @@ img {
         width var(--transition);
 }
 
+
 .main-nav a:hover {
     color: var(--gold-light);
 }
+
 
 .main-nav a:hover::after {
     width: 100%;
@@ -222,9 +275,11 @@ img {
     width: 44px;
     height: 44px;
 
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
 
-    background: rgba(0, 0, 0, 0.4);
+    background:
+        rgba(0, 0, 0, 0.4);
 
     cursor: pointer;
 
@@ -237,6 +292,7 @@ img {
 
     border-radius: 4px;
 }
+
 
 .menu-toggle span {
     width: 21px;
@@ -256,23 +312,31 @@ img {
 
 .section {
     position: relative;
-    padding: 120px 0;
+
+    padding:
+        120px 0;
 }
+
 
 .section-heading {
     max-width: 700px;
+
     margin-bottom: 60px;
 }
 
+
 .section-heading.centered {
     margin-inline: auto;
+
     text-align: center;
 }
+
 
 .section-label {
     color: var(--gold-light);
 
     font-size: 12px;
+
     font-weight: 800;
 
     letter-spacing: 3px;
@@ -280,14 +344,16 @@ img {
     margin-bottom: 14px;
 }
 
+
 .section-heading h2,
 .pastor-content h2,
 .contact-content h2 {
-    font-size: clamp(
-        36px,
-        5vw,
-        64px
-    );
+    font-size:
+        clamp(
+            36px,
+            5vw,
+            64px
+        );
 
     line-height: 1.08;
 
@@ -296,6 +362,7 @@ img {
     letter-spacing: -1.5px;
 }
 
+
 .section-heading > p:last-child {
     color: var(--text-muted);
 
@@ -303,6 +370,7 @@ img {
 
     max-width: 620px;
 }
+
 
 .section-heading.centered > p:last-child {
     margin-inline: auto;
@@ -321,14 +389,17 @@ img {
 
     min-height: 50px;
 
-    padding: 0 25px;
+    padding:
+        0 25px;
 
     border-radius: 2px;
 
     font-size: 12px;
+
     font-weight: 800;
 
     letter-spacing: 1px;
+
     text-transform: uppercase;
 
     transition:
@@ -340,22 +411,30 @@ img {
     cursor: pointer;
 }
 
+
 .btn:hover {
-    transform: translateY(-3px);
+    transform:
+        translateY(-3px);
 }
+
 
 .btn-primary {
     background: var(--gold);
 
     color: #080808;
 
-    border: 1px solid var(--gold);
+    border:
+        1px solid var(--gold);
 }
+
 
 .btn-primary:hover {
     background: var(--gold-light);
-    border-color: var(--gold-light);
+
+    border-color:
+        var(--gold-light);
 }
+
 
 .btn-outline {
     background: transparent;
@@ -363,7 +442,8 @@ img {
     color: var(--white);
 
     border:
-        1px solid rgba(
+        1px solid
+        rgba(
             255,
             255,
             255,
@@ -371,8 +451,10 @@ img {
         );
 }
 
+
 .btn-outline:hover {
     border-color: var(--gold);
+
     color: var(--gold-light);
 }
 
@@ -391,9 +473,11 @@ img {
     color: var(--gold-light);
 
     font-size: 12px;
+
     font-weight: 800;
 
     letter-spacing: 1px;
+
     text-transform: uppercase;
 
     margin-top: 25px;
@@ -403,14 +487,16 @@ img {
         color var(--transition);
 }
 
+
 .text-link:hover {
     gap: 18px;
+
     color: var(--white);
 }
 
 
 /* =========================================================
-   HERO
+   HERO SECTION
 ========================================================= */
 
 .hero-section {
@@ -419,6 +505,7 @@ img {
     position: relative;
 
     display: flex;
+
     align-items: center;
 
     background:
@@ -437,10 +524,12 @@ img {
     overflow: hidden;
 }
 
+
 .hero-section::before {
     content: "";
 
     position: absolute;
+
     inset: 0;
 
     background:
@@ -455,8 +544,10 @@ img {
     pointer-events: none;
 }
 
+
 .hero-overlay {
     position: absolute;
+
     inset: 0;
 
     background:
@@ -468,8 +559,10 @@ img {
         );
 }
 
+
 .hero-content {
     position: relative;
+
     z-index: 2;
 
     padding-top: 90px;
@@ -477,10 +570,12 @@ img {
     max-width: 850px;
 }
 
+
 .hero-tag {
     color: var(--gold-light);
 
     font-size: 12px;
+
     font-weight: 800;
 
     letter-spacing: 3px;
@@ -488,12 +583,14 @@ img {
     margin-bottom: 25px;
 }
 
+
 .hero-content h1 {
-    font-size: clamp(
-        55px,
-        9vw,
-        115px
-    );
+    font-size:
+        clamp(
+            55px,
+            9vw,
+            115px
+        );
 
     line-height: 0.92;
 
@@ -504,10 +601,13 @@ img {
     max-width: 900px;
 }
 
+
 .hero-content h1 span {
     display: block;
+
     color: var(--gold-light);
 }
+
 
 .hero-description {
     max-width: 600px;
@@ -519,6 +619,7 @@ img {
     font-size: 17px;
 }
 
+
 .hero-buttons {
     display: flex;
 
@@ -529,25 +630,29 @@ img {
     margin-top: 35px;
 }
 
+
 .hero-scroll {
     position: absolute;
 
     bottom: 35px;
+
     left: 50%;
 
-    transform: translateX(-50%);
+    transform:
+        translateX(-50%);
 
     color: var(--text-muted);
 
     font-size: 10px;
 
     letter-spacing: 2px;
+
     text-transform: uppercase;
 }
 
 
 /* =========================================================
-   ABOUT
+   ABOUT SECTION
 ========================================================= */
 
 .about-section {
@@ -558,6 +663,7 @@ img {
             #0d0d0d 100%
         );
 }
+
 
 .about-grid {
     display: grid;
@@ -571,9 +677,11 @@ img {
     align-items: start;
 }
 
+
 .about-content {
     max-width: 600px;
 }
+
 
 .about-content p {
     color: var(--text-muted);
@@ -582,6 +690,7 @@ img {
 
     margin-bottom: 22px;
 }
+
 
 .about-content .lead-text {
     color: var(--white);
@@ -593,6 +702,11 @@ img {
     margin-bottom: 28px;
 }
 
+
+/* =========================================================
+   ABOUT HIGHLIGHTS
+========================================================= */
+
 .about-highlight {
     display: grid;
 
@@ -602,12 +716,14 @@ img {
     gap: 15px;
 }
 
+
 .highlight-card {
     position: relative;
 
     min-height: 280px;
 
-    padding: 30px 24px;
+    padding:
+        30px 24px;
 
     background:
         linear-gradient(
@@ -627,6 +743,7 @@ img {
         background var(--transition);
 }
 
+
 .highlight-card::before {
     content: "";
 
@@ -640,7 +757,8 @@ img {
 
     background: var(--gold);
 
-    transform: scaleX(0);
+    transform:
+        scaleX(0);
 
     transform-origin: left;
 
@@ -648,8 +766,10 @@ img {
         transform var(--transition);
 }
 
+
 .highlight-card:hover {
-    transform: translateY(-8px);
+    transform:
+        translateY(-8px);
 
     border-color:
         rgba(
@@ -668,9 +788,12 @@ img {
         );
 }
 
+
 .highlight-card:hover::before {
-    transform: scaleX(1);
+    transform:
+        scaleX(1);
 }
+
 
 .highlight-number {
     display: block;
@@ -678,6 +801,7 @@ img {
     color: var(--gold);
 
     font-size: 11px;
+
     font-weight: 800;
 
     letter-spacing: 2px;
@@ -685,28 +809,33 @@ img {
     margin-bottom: 70px;
 }
 
+
 .highlight-card h3 {
     font-size: 20px;
+
     margin-bottom: 12px;
 }
+
 
 .highlight-card p {
     color: var(--text-muted);
 
     font-size: 13px;
+
     line-height: 1.7;
 }
 
 
 /* =========================================================
-   PASTOR
+   PASTOR SECTION
 ========================================================= */
 
 .pastor-section {
     background: #0d0d0d;
 
     border-top:
-        1px solid rgba(
+        1px solid
+        rgba(
             255,
             255,
             255,
@@ -714,13 +843,15 @@ img {
         );
 
     border-bottom:
-        1px solid rgba(
+        1px solid
+        rgba(
             255,
             255,
             255,
             0.04
         );
 }
+
 
 .pastor-grid {
     display: grid;
@@ -734,30 +865,42 @@ img {
     align-items: center;
 }
 
+
+/* =========================================================
+   PASTOR IMAGE — FIXED
+========================================================= */
+
 .pastor-image-wrapper {
     position: relative;
 
     width: 100%;
 
+    max-width: 600px;
+
+    /*
+       Keeps the image box proportional
+       instead of creating a very tall box.
+    */
+    aspect-ratio: 16 / 10;
+
     display: flex;
 
     align-items: center;
+
     justify-content: center;
+
+    overflow: hidden;
+
+    background: #000;
+
+    border:
+        1px solid var(--gold-dark);
 }
 
-.pastor-image {
-    display: block;
 
-    width: 100%;
-    height: auto;
-
-    max-height: 600px;
-
-    object-fit: contain;
-
-    position: relative;
-    z-index: 1;
-}
+/*
+   Decorative offset gold frame
+*/
 
 .pastor-image-wrapper::before {
     content: "";
@@ -778,93 +921,66 @@ img {
     z-index: 0;
 }
 
+
+/*
+   Actual Pastor image
+*/
+
+.pastor-image {
+    position: relative;
+
+    z-index: 1;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: contain;
+
+    object-position: center;
+
+    background: #000;
+}
+
+
+/*
+   Old placeholder is disabled.
+*/
+
 .pastor-image-placeholder {
-    position: relative;
-
-    min-height: 600px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(
-                216,
-                155,
-                50,
-                0.16
-            ),
-            transparent 50%
-        ),
-        linear-gradient(
-            145deg,
-            #1b1b1b,
-            #080808
-        );
-
-    border:
-        1px solid var(--border);
-
-    overflow: hidden;
+    display: none;
 }
 
-.pastor-image-placeholder::after {
-    content: "";
 
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(
-            135deg,
-            transparent 45%,
-            rgba(
-                216,
-                155,
-                50,
-                0.12
-            ) 50%,
-            transparent 55%
-        );
-
-    opacity: 0.6;
-}
-
-.pastor-image-placeholder span {
-    position: relative;
-
-    z-index: 2;
-
-    color: var(--gold-light);
-
-    font-size: 13px;
-    font-weight: 800;
-
-    letter-spacing: 5px;
-}
+/* =========================================================
+   PASTOR CONTENT
+========================================================= */
 
 .pastor-content {
     max-width: 650px;
 }
 
+
 .pastor-content h2 {
     margin-bottom: 10px;
 }
+
 
 .pastor-title {
     color: var(--gold-light) !important;
 
     font-size: 13px !important;
+
     font-weight: 700;
 
     letter-spacing: 1px;
+
     text-transform: uppercase;
 
     margin-bottom: 30px !important;
 }
+
 
 .pastor-content p:not(.section-label):not(.pastor-title) {
     color: var(--text-muted);
@@ -874,18 +990,20 @@ img {
     margin-bottom: 22px;
 }
 
+
 .pastor-content .btn {
     margin-top: 15px;
 }
 
 
 /* =========================================================
-   MINISTRIES
+   MINISTRIES SECTION
 ========================================================= */
 
 .ministries-section {
     background: #080808;
 }
+
 
 .ministries-grid {
     display: grid;
@@ -896,15 +1014,19 @@ img {
     gap: 18px;
 }
 
+
 .ministry-card {
     position: relative;
 
     min-height: 330px;
 
-    padding: 35px 28px;
+    padding:
+        35px 28px;
 
     display: flex;
+
     flex-direction: column;
+
     justify-content: flex-end;
 
     background:
@@ -915,7 +1037,8 @@ img {
         );
 
     border:
-        1px solid rgba(
+        1px solid
+        rgba(
             255,
             255,
             255,
@@ -928,6 +1051,7 @@ img {
         transform var(--transition),
         border-color var(--transition);
 }
+
 
 .ministry-card::before {
     content: "";
@@ -954,16 +1078,21 @@ img {
         transform var(--transition);
 }
 
+
 .ministry-card:hover {
-    transform: translateY(-8px);
+    transform:
+        translateY(-8px);
 
     border-color:
         var(--gold-dark);
 }
 
+
 .ministry-card:hover::before {
-    transform: scale(1.4);
+    transform:
+        scale(1.4);
 }
+
 
 .card-number {
     position: absolute;
@@ -974,13 +1103,16 @@ img {
     color: var(--gold);
 
     font-size: 11px;
+
     font-weight: 800;
 
     letter-spacing: 2px;
 }
 
+
 .ministry-card h3 {
     position: relative;
+
     z-index: 2;
 
     font-size: 21px;
@@ -988,19 +1120,44 @@ img {
     margin-bottom: 12px;
 }
 
+
 .ministry-card p {
     position: relative;
+
     z-index: 2;
 
     color: var(--text-muted);
 
     font-size: 13px;
+
     line-height: 1.7;
 }
 
 
 /* =========================================================
-   SERMONS
+   DECORATIVE LINE
+========================================================= */
+
+.about-section::after,
+.ministries-section::after {
+    content: "";
+
+    display: block;
+
+    width: 60px;
+
+    height: 2px;
+
+    background:
+        var(--gold);
+
+    margin:
+        60px auto 0;
+}
+
+
+/* =========================================================
+   SERMONS SECTION
 ========================================================= */
 
 .sermons-section {
@@ -1012,25 +1169,28 @@ img {
         );
 }
 
+
 .sermons-container {
     min-height: 280px;
 
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 }
 
 
 /* =========================================================
-   EVENTS
+   EVENTS SECTION
 ========================================================= */
 
 .events-section {
     background: #0d0d0d;
 
     border-top:
-        1px solid rgba(
+        1px solid
+        rgba(
             255,
             255,
             255,
@@ -1038,172 +1198,19 @@ img {
         );
 }
 
+
 .events-container {
     min-height: 280px;
 
     display: flex;
 
-    align-items: center;
-    justify-content: center;
-
     flex-direction: column;
 
-    gap: 30px;
-}
-
-
-/* =========================================================
-   EVENT REGISTRATION
-========================================================= */
-
-.event-registration-box {
-    width: 100%;
-    max-width: 700px;
-
-    padding: 40px;
-
-    border:
-        1px solid var(--border);
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.025
-        );
-}
-
-.event-registration-box .section-heading {
-    margin-bottom: 35px;
-}
-
-.event-registration-box h3 {
-    font-size: 30px;
-}
-
-.event-registration-box form {
-    width: 100%;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-
-    color: var(--gold-light);
-
-    font-size: 11px;
-    font-weight: 800;
-
-    letter-spacing: 1px;
-
-    text-transform: uppercase;
-
-    margin-bottom: 8px;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-    width: 100%;
-
-    min-height: 50px;
-
-    padding: 12px 15px;
-
-    border:
-        1px solid rgba(
-            255,
-            255,
-            255,
-            0.12
-        );
-
-    background: #101010;
-
-    color: var(--white);
-
-    outline: none;
-
-    border-radius: 2px;
-
-    transition:
-        border-color var(--transition),
-        box-shadow var(--transition);
-}
-
-.form-group textarea {
-    min-height: 120px;
-    resize: vertical;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-    border-color: var(--gold);
-
-    box-shadow:
-        0 0 0 2px
-        rgba(
-            216,
-            155,
-            50,
-            0.08
-        );
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: #666;
-}
-
-.primary-btn {
-    display: inline-flex;
-
     align-items: center;
+
     justify-content: center;
 
-    min-height: 50px;
-
-    padding: 0 25px;
-
-    background: var(--gold);
-
-    color: #080808;
-
-    border:
-        1px solid var(--gold);
-
-    border-radius: 2px;
-
-    font-size: 12px;
-    font-weight: 800;
-
-    letter-spacing: 1px;
-    text-transform: uppercase;
-
-    cursor: pointer;
-
-    transition:
-        transform var(--transition),
-        background var(--transition);
-}
-
-.primary-btn:hover {
-    transform: translateY(-3px);
-
-    background: var(--gold-light);
-}
-
-.event-message {
-    margin-top: 18px;
-
-    font-size: 14px;
-
-    color: var(--text-light);
+    gap: 30px;
 }
 
 
@@ -1216,7 +1223,8 @@ img {
 
     max-width: 620px;
 
-    padding: 60px 30px;
+    padding:
+        60px 30px;
 
     text-align: center;
 
@@ -1231,6 +1239,7 @@ img {
             0.025
         );
 }
+
 
 .empty-icon {
     width: 54px;
@@ -1254,11 +1263,13 @@ img {
     font-size: 20px;
 }
 
+
 .empty-state h3 {
     font-size: 23px;
 
     margin-bottom: 12px;
 }
+
 
 .empty-state p {
     color: var(--text-muted);
@@ -1266,781 +1277,380 @@ img {
     font-size: 14px;
 }
 
+<!-- ==================================================
+     EVENT REGISTRATION
+================================================== -->
 
-/* =========================================================
-   CONTACT SECTION
-========================================================= */
+<div
+    class="event-registration-box"
+    id="eventRegistrationBox"
+    style="display: none;"
+>
 
-.contact-section {
-    background:
-        radial-gradient(
-            circle at 20% 50%,
-            rgba(216, 155, 50, 0.08),
-            transparent 30%
-        ),
-        #080808;
-}
+    <div class="section-heading centered">
 
+        <p class="section-label">
+            EVENT REGISTRATION
+        </p>
 
-.contact-grid {
-    display: grid;
+        <h3>
+            Register for an Event
+        </h3>
 
-    grid-template-columns:
-        minmax(0, 1.2fr)
-        minmax(280px, 0.8fr);
+        <p>
+            Fill in your details below to register.
+        </p>
 
-    gap: 100px;
+    </div>
 
-    align-items: center;
-}
 
+    <form id="eventRegistrationForm">
 
-.contact-content {
-    max-width: 700px;
-}
+        <div class="form-group">
 
+            <label for="registrationName">
+                Full Name
+            </label>
 
-.contact-content h2 {
-    margin-bottom: 25px;
-}
+            <input
+                type="text"
+                id="registrationName"
+                name="name"
+                placeholder="Enter your full name"
+                required
+            >
 
+        </div>
 
-.contact-content > p:last-child {
-    color: var(--text-muted);
 
-    max-width: 580px;
+        <div class="form-group">
 
-    font-size: 16px;
-}
+            <label for="registrationEmail">
+                Email Address
+            </label>
 
+            <input
+                type="email"
+                id="registrationEmail"
+                name="email"
+                placeholder="Enter your email"
+                required
+            >
 
-/* =========================================================
-   CONTACT DETAILS
-========================================================= */
+        </div>
 
-.contact-details {
-    padding: 35px;
 
-    border: 1px solid var(--border);
+        <div class="form-group">
 
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.025
-        );
-}
+            <label for="registrationEvent">
+                Select Event
+            </label>
 
+            <input
+                type="text"
+                id="registrationEvent"
+                name="event_name"
+                placeholder="Enter event name"
+                required
+            >
 
-.contact-item {
-    padding: 18px 0;
+        </div>
 
-    border-bottom:
-        1px solid rgba(
-            255,
-            255,
-            255,
-            0.08
-        );
-}
 
+        <button
+            type="submit"
+            class="btn btn-primary"
+        >
+            Register
+        </button>
 
-.contact-item:first-child {
-    padding-top: 0;
-}
 
+        <div
+            id="registrationFormMessage"
+            class="event-message"
+        ></div>
 
-.contact-item:last-child {
-    border-bottom: none;
-}
+    </form>
 
+</div>
 
-.contact-item span {
-    display: block;
 
-    color: var(--gold-light);
+<!-- ==================================================
+     EVENTS EMPTY STATE
+================================================== -->
 
-    font-size: 10px;
+<div class="empty-state">
 
-    font-weight: 800;
+    <div class="empty-icon">
+        ✦
+    </div>
 
-    letter-spacing: 2px;
+    <h3>
+        No upcoming events
+    </h3>
 
-    text-transform: uppercase;
+    <p>
+        There are no published events at the moment.
+        Check back soon.
+    </p>
 
-    margin-bottom: 6px;
-}
+</div>
 
+</div>
 
-.contact-item p {
-    color: var(--text-light);
+</div>
 
-    font-size: 14px;
+</section>
 
-    margin: 0;
-}
 
+<!-- ==================================================
+     CONTACT SECTION
+================================================== -->
 
-.contact-item a {
-    position: relative;
+<section
+    class="contact-section section"
+    id="contact"
+>
 
-    z-index: 10;
+    <div class="container">
 
-    display: inline-block;
+        <div class="contact-grid">
 
-    color: var(--gold-light);
+            <div class="contact-content">
 
-    cursor: pointer;
+                <p class="section-label">
+                    CONTACT US
+                </p>
 
-    pointer-events: auto;
+                <h2>
+                    Connect With Photizo
+                </h2>
 
-    transition:
-        color var(--transition);
-}
+                <p>
+                    Stay connected with Photizo Gospel Mission
+                    International and be part of what God is
+                    doing through the ministry.
+                </p>
 
+            </div>
 
-.contact-item a:hover {
-    color: var(--white);
 
-    text-decoration: underline;
-}
+            <div class="contact-details">
 
 
-/* =========================================================
-   FOOTER
-========================================================= */
+                <!-- LOCATION -->
 
-.site-footer {
-    padding: 45px 0;
+                <div class="contact-item">
 
-    background: #050505;
+                    <span>
+                        Location
+                    </span>
 
-    border-top:
-        1px solid rgba(
-            255,
-            255,
-            255,
-            0.07
-        );
-}
+                    <p>
+                        Idi Agbon, Ila-Orangun,
+                        Osun State, Nigeria
+                    </p>
 
+                </div>
 
-.footer-content {
-    display: flex;
 
-    align-items: center;
+                <!-- EMAIL -->
 
-    justify-content: space-between;
+                <div class="contact-item">
 
-    gap: 30px;
-}
+                    <span>
+                        Email
+                    </span>
 
+                    <p>
+                        <a
+                            href="mailto:Info@photizo@gmail.com"
+                        >
+                            Info@photizo@gmail.com
+                        </a>
+                    </p>
 
-.footer-brand .logo-main {
-    font-size: 21px;
-}
+                </div>
 
 
-.footer-brand p {
-    color: var(--text-muted);
+                <!-- TELEGRAM -->
 
-    font-size: 10px;
+                <div class="contact-item">
 
-    letter-spacing: 1.5px;
+                    <span>
+                        Telegram
+                    </span>
 
-    text-transform: uppercase;
+                    <p>
+                        <a
+                            href="https://t.me/Precious_C_Eze"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Connect on Telegram
+                        </a>
+                    </p>
 
-    margin-top: 6px;
-}
+                </div>
 
 
-.copyright {
-    color: #666;
+                <!-- TIKTOK -->
 
-    font-size: 11px;
+                <div class="contact-item">
 
-    text-align: right;
-}
+                    <span>
+                        TikTok
+                    </span>
 
+                    <p>
+                        <a
+                            href="https://www.tiktok.com/@precious_c_eze"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Follow on TikTok
+                        </a>
+                    </p>
 
-/* =========================================================
-   SELECTION
-========================================================= */
+                </div>
 
-::selection {
-    background: var(--gold);
 
-    color: #080808;
-}
+                <!-- YOUTUBE -->
 
+                <div class="contact-item">
 
-/* =========================================================
-   SCROLLBAR
-========================================================= */
+                    <span>
+                        YouTube
+                    </span>
 
-::-webkit-scrollbar {
-    width: 8px;
-}
+                    <p>
+                        <a
+                            href="https://www.youtube.com/precious_c_eze"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Watch on YouTube
+                        </a>
+                    </p>
 
+                </div>
 
-::-webkit-scrollbar-track {
-    background: #080808;
-}
 
+                <!-- FACEBOOK -->
 
-::-webkit-scrollbar-thumb {
-    background: var(--gold-dark);
+                <div class="contact-item">
 
-    border-radius: 10px;
-}
+                    <span>
+                        Facebook
+                    </span>
 
+                    <p>
+                        <a
+                            href="https://www.facebook.com/Precious.Chigozirim.eze"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Follow on Facebook
+                        </a>
+                    </p>
 
-::-webkit-scrollbar-thumb:hover {
-    background: var(--gold);
-}
+                </div>
 
 
-/* =========================================================
-   TABLET
-========================================================= */
+                <!-- MINISTRY -->
 
-@media (max-width: 1000px) {
+                <div class="contact-item">
 
-    .main-nav {
-        gap: 18px;
+                    <span>
+                        Ministry
+                    </span>
+
+                    <p>
+                        Photizo Gospel Mission International
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="#home"
+                    class="btn btn-primary"
+                >
+                    Back To Top
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- ==================================================
+     FOOTER
+================================================== -->
+
+<footer class="site-footer">
+
+    <div class="container footer-content">
+
+        <div class="footer-brand">
+
+            <span class="logo-main">
+                PHOTIZO
+            </span>
+
+            <p>
+                Gospel Mission International
+            </p>
+
+        </div>
+
+
+        <p class="copyright">
+
+            ©
+            <span id="currentYear"></span>
+
+            Photizo Gospel Mission International.
+            All rights reserved.
+
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- ==================================================
+     JAVASCRIPT
+================================================== -->
+
+<script src="js/main.js"></script>
+
+
+<!-- ==================================================
+     CURRENT YEAR
+================================================== -->
+
+<script>
+
+    const currentYear =
+        document.getElementById("currentYear");
+
+    if (currentYear) {
+
+        currentYear.textContent =
+            new Date().getFullYear();
+
     }
 
+</script>
 
-    .main-nav a {
-        font-size: 12px;
-    }
 
-
-    .about-grid {
-        gap: 50px;
-    }
-
-
-    .about-highlight {
-        grid-template-columns: 1fr;
-    }
-
-
-    .highlight-card {
-        min-height: 220px;
-    }
-
-
-    .highlight-number {
-        margin-bottom: 35px;
-    }
-
-
-    .pastor-grid {
-        gap: 50px;
-    }
-
-
-    .ministries-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
-
-
-    .contact-grid {
-        gap: 50px;
-    }
-
-}
-
-
-/* =========================================================
-   MOBILE NAVIGATION
-========================================================= */
-
-@media (max-width: 760px) {
-
-    .container {
-        width:
-            min(
-                100% - 30px,
-                var(--container)
-            );
-    }
-
-
-    .nav-container {
-        min-height: 76px;
-    }
-
-
-    .menu-toggle {
-        display: flex;
-
-        position: relative;
-
-        z-index: 1002;
-    }
-
-
-    .main-nav {
-        position: fixed;
-
-        top: 0;
-
-        right: -100%;
-
-        width:
-            min(
-                320px,
-                85%
-            );
-
-        height: 100vh;
-
-        padding:
-            110px 35px 40px;
-
-        display: flex;
-
-        align-items: flex-start;
-
-        flex-direction: column;
-
-        gap: 5px;
-
-        background: #0a0a0a;
-
-        border-left:
-            1px solid var(--border);
-
-        box-shadow:
-            -20px 0 60px
-            rgba(
-                0,
-                0,
-                0,
-                0.5
-            );
-
-        transition:
-            right 0.35s ease;
-
-        z-index: 1001;
-    }
-
-
-    .main-nav.active {
-        right: 0;
-    }
-
-
-    .main-nav a {
-        width: 100%;
-
-        padding:
-            14px 0;
-
-        font-size: 14px;
-
-        border-bottom:
-            1px solid rgba(
-                255,
-                255,
-                255,
-                0.05
-            );
-    }
-
-
-    .main-nav a::after {
-        display: none;
-    }
-
-
-    .menu-toggle.active
-    span:nth-child(1) {
-        transform:
-            translateY(7px)
-            rotate(45deg);
-    }
-
-
-    .menu-toggle.active
-    span:nth-child(2) {
-        opacity: 0;
-    }
-
-
-    .menu-toggle.active
-    span:nth-child(3) {
-        transform:
-            translateY(-7px)
-            rotate(-45deg);
-    }
-
-
-    /* HERO */
-
-    .hero-section {
-        min-height: 850px;
-    }
-
-
-    .hero-content {
-        padding-top: 100px;
-    }
-
-
-    .hero-content h1 {
-        font-size:
-            clamp(
-                48px,
-                15vw,
-                78px
-            );
-
-        letter-spacing: -3px;
-    }
-
-
-    .hero-description {
-        font-size: 15px;
-
-        max-width: 500px;
-    }
-
-
-    .hero-buttons {
-        flex-direction: column;
-
-        align-items: flex-start;
-    }
-
-
-    .hero-buttons .btn {
-        width: 100%;
-
-        max-width: 300px;
-    }
-
-
-    .hero-scroll {
-        display: none;
-    }
-
-
-    /* SECTIONS */
-
-    .section {
-        padding:
-            85px 0;
-    }
-
-
-    .section-heading {
-        margin-bottom: 40px;
-    }
-
-
-    .section-heading h2,
-    .pastor-content h2,
-    .contact-content h2 {
-        font-size:
-            clamp(
-                34px,
-                10vw,
-                50px
-            );
-    }
-
-
-    /* ABOUT */
-
-    .about-grid {
-        grid-template-columns: 1fr;
-
-        gap: 45px;
-    }
-
-
-    .about-content .lead-text {
-        font-size: 21px;
-    }
-
-
-    .about-highlight {
-        grid-template-columns: 1fr;
-    }
-
-
-    /* PASTOR */
-
-    .pastor-grid {
-        grid-template-columns: 1fr;
-
-        gap: 55px;
-    }
-
-
-    .pastor-image-wrapper,
-    .pastor-image-placeholder {
-        min-height: 480px;
-    }
-
-
-    /* MINISTRIES */
-
-    .ministries-grid {
-        grid-template-columns: 1fr;
-
-        gap: 15px;
-    }
-
-
-    .ministry-card {
-        min-height: 270px;
-    }
-
-
-    /* CONTACT */
-
-    .contact-grid {
-        grid-template-columns: 1fr;
-
-        gap: 45px;
-    }
-
-
-    .contact-details {
-        padding: 30px;
-    }
-
-
-    /* FOOTER */
-
-    .footer-content {
-        flex-direction: column;
-
-        align-items: flex-start;
-    }
-
-
-    .copyright {
-        text-align: left;
-    }
-
-}
-
-
-/* =========================================================
-   SMALL PHONES
-========================================================= */
-
-@media (max-width: 420px) {
-
-    .logo-main {
-        font-size: 23px;
-
-        letter-spacing: 4px;
-    }
-
-
-    .logo-sub {
-        font-size: 6px;
-
-        letter-spacing: 1.7px;
-    }
-
-
-    .hero-section {
-        min-height: 780px;
-    }
-
-
-    .hero-content h1 {
-        font-size: 48px;
-    }
-
-
-    .hero-description {
-        font-size: 14px;
-    }
-
-
-    .btn {
-        min-height: 48px;
-
-        padding:
-            0 19px;
-
-        font-size: 10px;
-    }
-
-
-    .pastor-image-wrapper,
-    .pastor-image-placeholder {
-        min-height: 390px;
-    }
-
-
-    .contact-details {
-        padding: 25px;
-    }
-
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-    html {
-        scroll-behavior: auto;
-    }
-
-
-    *,
-    *::before,
-    *::after {
-        transition:
-            none !important;
-
-        animation:
-            none !important;
-    }
-
-}
-
-
-/* =========================================================
-   STICKY NAVIGATION
-========================================================= */
-
-.site-nav {
-    position: sticky;
-
-    top: 0;
-
-    z-index: 1000;
-
-    width: 100%;
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.97
-        );
-
-    border-bottom:
-        1px solid rgba(
-            0,
-            0,
-            0,
-            0.08
-        );
-
-    backdrop-filter: blur(10px);
-}
-
-
-.site-nav .nav-container {
-    max-width: 1200px;
-
-    margin: 0 auto;
-
-    padding: 14px 24px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 24px;
-}
-
-
-.nav-logo {
-    font-size: 20px;
-
-    font-weight: 800;
-
-    letter-spacing: 1px;
-
-    text-decoration: none;
-
-    color: inherit;
-}
-
-
-.nav-links {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 24px;
-}
-
-
-.nav-links a {
-    text-decoration: none;
-
-    color: inherit;
-
-    font-size: 14px;
-
-    font-weight: 600;
-
-    transition:
-        opacity 0.2s ease;
-}
-
-
-.nav-links a:hover {
-    opacity: 0.65;
-}
-
-
-/* =========================================================
-   STICKY NAV MOBILE
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .site-nav .nav-container {
-        padding: 12px 16px;
-
-        flex-direction: column;
-
-        gap: 10px;
-    }
-
-
-    .nav-links {
-        width: 100%;
-
-        gap: 16px;
-
-        overflow-x: auto;
-
-        justify-content: flex-start;
-
-        padding-bottom: 4px;
-    }
-
-
-    .nav-links a {
-        white-space: nowrap;
-
-        font-size: 13px;
-    }
-
-           }
+</body>
+</html>
