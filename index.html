@@ -18,11 +18,8 @@
         content="#090909"
     >
 
-    <title>
-        Photizo Gospel Mission International
-    </title>
+    <title>Photizo Gospel Mission International</title>
 
-    <!-- Main stylesheet -->
     <link
         rel="stylesheet"
         href="css/style.css"
@@ -30,31 +27,6 @@
 </head>
 
 <body>
-    <nav class="site-nav"><div class="nav-container">
-
-    <a href="#home" class="nav-logo">
-        PHOTIZO
-    </a>
-
-    <div class="nav-links">
-
-        <a href="#home">Home</a>
-
-        <a href="#about">About</a>
-
-        <a href="#ministries">Ministries</a>
-
-        <a href="#sermons">Sermons</a>
-
-        <a href="#events">Events</a>
-
-        <a href="#contact">Contact</a>
-
-    </div>
-
-</div>
-
-</nav>
 
     <!-- ==================================================
          HEADER / NAVIGATION
@@ -65,7 +37,7 @@
         <div class="container nav-container">
 
             <a
-                href="index.html"
+                href="#home"
                 class="logo"
                 aria-label="Photizo Gospel Mission International Home"
             >
@@ -85,6 +57,7 @@
                 type="button"
                 aria-label="Open navigation menu"
                 aria-expanded="false"
+                aria-controls="mainNav"
             >
                 <span></span>
                 <span></span>
@@ -98,33 +71,19 @@
                 aria-label="Main navigation"
             >
 
-                <a href="#home">
-                    Home
-                </a>
+                <a href="#home">Home</a>
 
-                <a href="#about">
-                    About
-                </a>
+                <a href="#about">About</a>
 
-                <a href="#pastor">
-                    Our Pastor
-                </a>
+                <a href="#pastor">Our Pastor</a>
 
-                <a href="#ministries">
-                    Ministries
-                </a>
+                <a href="#ministries">Ministries</a>
 
-                <a href="#sermons">
-                    Sermons
-                </a>
+                <a href="#sermons">Sermons</a>
 
-                <a href="#events">
-                    Events
-                </a>
+                <a href="#events">Events</a>
 
-                <a href="#contact">
-                    Contact
-                </a>
+                <a href="#contact">Contact</a>
 
             </nav>
 
@@ -190,9 +149,7 @@
             </div>
 
             <div class="hero-scroll">
-                <span>
-                    Scroll to explore
-                </span>
+                <span>Scroll to explore</span>
             </div>
 
         </section>
@@ -239,10 +196,11 @@
                             Word of God, persistent prayer, and the
                             power of the Holy Spirit.
                         </p>
-<a
-    href="#about"
-    class="text-link"
->
+
+                        <a
+                            href="#about"
+                            class="text-link"
+                        >
                             Learn More About Us
                             <span>→</span>
                         </a>
@@ -327,11 +285,11 @@
 
                 <div class="pastor-image-wrapper">
 
-    <img
-        src="file_00000000a63082439e3de35086e7ab78.png"
-        alt="Setman of Photizo Gospel Mission International"
-        class="pastor-image"
-    >
+                    <img
+                        src="file_00000000a63082439e3de35086e7ab78.png"
+                        alt="Set man of Photizo Gospel Mission International"
+                        class="pastor-image"
+                    >
 
                 </div>
 
@@ -574,98 +532,102 @@
                     class="events-container"
                     id="eventsContainer"
                 >
+
                     <!-- EVENT REGISTRATION FORM -->
 
-<div
-    class="event-registration-box"
-    id="eventRegistrationBox"
-    style="display: none;"
->
+                    <div
+                        class="event-registration-box"
+                        id="eventRegistrationBox"
+                        style="display: none;"
+                    >
 
-    <div class="section-heading centered">
+                        <div class="section-heading centered">
 
-        <p class="section-label">
-            EVENT REGISTRATION
-        </p>
+                            <p class="section-label">
+                                EVENT REGISTRATION
+                            </p>
 
-        <h3>
-            Register for an Event
-        </h3>
+                            <h3>
+                                Register for an Event
+                            </h3>
 
-        <p>
-            Fill in your details below to register.
-        </p>
+                            <p>
+                                Fill in your details below to register.
+                            </p>
 
-    </div>
-
-    <form id="eventRegistrationForm">
-
-        <div class="form-group">
-
-            <label for="registrationName">
-                Full Name
-            </label>
-
-            <input
-                type="text"
-                id="registrationName"
-                name="name"
-                placeholder="Enter your full name"
-                required
-            >
-
-        </div>
+                        </div>
 
 
-        <div class="form-group">
+                        <form id="eventRegistrationForm">
 
-            <label for="registrationEmail">
-                Email Address
-            </label>
+                            <div class="form-group">
 
-            <input
-                type="email"
-                id="registrationEmail"
-                name="email"
-                placeholder="Enter your email"
-                required
-            >
+                                <label for="registrationName">
+                                    Full Name
+                                </label>
 
-        </div>
+                                <input
+                                    type="text"
+                                    id="registrationName"
+                                    name="name"
+                                    placeholder="Enter your full name"
+                                    required
+                                >
 
-
-        <div class="form-group">
-
-            <label for="registrationEvent">
-                Select Event
-            </label>
-
-            <input
-                type="text"
-                id="registrationEvent"
-                name="event_name"
-                placeholder="Enter event name"
-                required
-            >
-
-        </div>
+                            </div>
 
 
-        <button
-            type="submit"
-            class="primary-btn"
-        >
-            Register
-        </button>
+                            <div class="form-group">
 
-        <div
-            id="registrationFormMessage"
-            class="event-message"
-        ></div>
+                                <label for="registrationEmail">
+                                    Email Address
+                                </label>
 
-    </form>
+                                <input
+                                    type="email"
+                                    id="registrationEmail"
+                                    name="email"
+                                    placeholder="Enter your email"
+                                    required
+                                >
 
-                </div>
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="registrationEvent">
+                                    Select Event
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="registrationEvent"
+                                    name="event_name"
+                                    placeholder="Enter event name"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <button
+                                type="submit"
+                                class="primary-btn"
+                            >
+                                Register
+                            </button>
+
+
+                            <div
+                                id="registrationFormMessage"
+                                class="event-message"
+                            ></div>
+
+                        </form>
+
+                    </div>
+
 
                     <div class="empty-state">
 
@@ -707,131 +669,152 @@
                     <div class="contact-content">
 
                         <p class="section-label">
-                            
-<div class="contact-details"><div class="contact-item">
+                            CONTACT US
+                        </p>
 
-    <span>
-        Location
-    </span>
-
-    <p>
-        Idi Agbon, Ila-Orangun, Osun State, Nigeria
-    </p>
-
-</div>
+                        <h2>
+                            Connect With Photizo
+                        </h2>
 
 
-<div class="contact-item">
+                        <div class="contact-details">
 
-    <span>
-        Email
-    </span>
+                            <div class="contact-item">
 
-    <p>
-        <a href="mailto:Info@photizo@gmail.com">
-            Info@photizo@gmail.com
-        </a>
-    </p>
+                                <span>
+                                    Location
+                                </span>
 
-</div>
+                                <p>
+                                    Idi Agbon, Ila-Orangun,
+                                    Osun State, Nigeria
+                                </p>
 
-
-<div class="contact-item">
-
-    <span>
-        Telegram
-    </span>
-
-    <p>
-        <a
-            href="https://t.me/Precious_C_Eze"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Connect on Telegram
-        </a>
-    </p>
-
-</div>
+                            </div>
 
 
-<div class="contact-item">
+                            <div class="contact-item">
 
-    <span>
-        TikTok
-    </span>
+                                <span>
+                                    Email
+                                </span>
 
-    <p>
-        <a
-            href="https://www.tiktok.com/@precious_c_eze"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Follow on TikTok
-        </a>
-    </p>
+                                <p>
+                                    <a href="mailto:Info@photizo@gmail.com">
+                                        Info@photizo@gmail.com
+                                    </a>
+                                </p>
 
-</div>
+                            </div>
 
 
-<div class="contact-item">
+                            <div class="contact-item">
 
-    <span>
-        YouTube
-    </span>
+                                <span>
+                                    Telegram
+                                </span>
 
-    <p>
-        <a
-            href="https://www.youtube.com/precious_c_eze"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Watch on YouTube
-        </a>
-    </p>
+                                <p>
+                                    <a
+                                        href="https://t.me/Precious_C_Eze"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Connect on Telegram
+                                    </a>
+                                </p>
 
-</div>
+                            </div>
 
 
-<div class="contact-item">
+                            <div class="contact-item">
 
-    <span>
-        Facebook
-    </span>
+                                <span>
+                                    TikTok
+                                </span>
 
-    <p>
-        <a
-            href="https://www.facebook.com/Precious.Chigozirim.eze"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Follow on Facebook
-        </a>
-    </p>
+                                <p>
+                                    <a
+                                        href="https://www.tiktok.com/@precious_c_eze"
+                                        target="_blank"
+                                        rel="noopener noreferrer"<div class="contact-item">
 
-</div>
+                                <span>
+                                    TikTok
+                                </span>
 
-</div>
+                                <p>
+                                    <a
+                                        href="https://www.tiktok.com/@precious_c_eze"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Follow on TikTok
+                                    </a>
+                                </p>
 
-                        <div class="contact-item">
+                            </div>
 
-                            <span>
-                                Ministry
-                            </span>
 
-                            <p>
-                                Photizo Gospel Mission International
-                            </p>
+                            <div class="contact-item">
+
+                                <span>
+                                    YouTube
+                                </span>
+
+                                <p>
+                                    <a
+                                        href="https://www.youtube.com/precious_c_eze"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Watch on YouTube
+                                    </a>
+                                </p>
+
+                            </div>
+
+
+                            <div class="contact-item">
+
+                                <span>
+                                    Facebook
+                                </span>
+
+                                <p>
+                                    <a
+                                        href="https://www.facebook.com/Precious.Chigozirim.eze"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Follow on Facebook
+                                    </a>
+                                </p>
+
+                            </div>
+
+
+                            <div class="contact-item">
+
+                                <span>
+                                    Ministry
+                                </span>
+
+                                <p>
+                                    Photizo Gospel Mission International
+                                </p>
+
+                            </div>
+
+
+                            <a
+                                href="#home"
+                                class="btn btn-primary"
+                            >
+                                Back To Top
+                            </a>
 
                         </div>
-
-
-                        <a
-                            href="#home"
-                            class="btn btn-primary"
-                        >
-                            Back To Top
-                        </a>
 
                     </div>
 
@@ -866,7 +849,8 @@
 
 
             <p class="copyright">
-                © <span id="currentYear"></span>
+                ©
+                <span id="currentYear"></span>
                 Photizo Gospel Mission International.
                 All rights reserved.
             </p>
@@ -878,15 +862,142 @@
 
     <!-- ==================================================
          JAVASCRIPT
+         MOBILE MENU + HEADER
     =================================================== -->
 
-    <script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
+    <script>
 
-<script src="js/supabase.js"></script>
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
 
-<script src="js/main.js"></script>
+                const menuToggle =
+                    document.getElementById("menuToggle");
+
+                const mainNav =
+                    document.getElementById("mainNav");
+
+                const siteHeader =
+                    document.querySelector(".site-header");
+
+
+                /* MOBILE MENU */
+
+                if (menuToggle && mainNav) {
+
+                    menuToggle.addEventListener(
+                        "click",
+                        function () {
+
+                            const isOpen =
+                                mainNav.classList.toggle("active");
+
+                            menuToggle.classList.toggle(
+                                "active",
+                                isOpen
+                            );
+
+                            menuToggle.setAttribute(
+                                "aria-expanded",
+                                isOpen ? "true" : "false"
+                            );
+
+                            menuToggle.setAttribute(
+                                "aria-label",
+                                isOpen
+                                    ? "Close navigation menu"
+                                    : "Open navigation menu"
+                            );
+
+                        }
+                    );
+
+
+                    /* CLOSE MENU AFTER CLICKING A LINK */
+
+                    mainNav
+                        .querySelectorAll("a")
+                        .forEach(function (link) {
+
+                            link.addEventListener(
+                                "click",
+                                function () {
+
+                                    mainNav.classList.remove(
+                                        "active"
+                                    );
+
+                                    menuToggle.classList.remove(
+                                        "active"
+                                    );
+
+                                    menuToggle.setAttribute(
+                                        "aria-expanded",
+                                        "false"
+                                    );
+
+                                    menuToggle.setAttribute(
+                                        "aria-label",
+                                        "Open navigation menu"
+                                    );
+
+                                }
+                            );
+
+                        });
+
+                }
+
+
+                /* HEADER SCROLL EFFECT */
+
+                function updateHeader() {
+
+                    if (!siteHeader) {
+                        return;
+                    }
+
+                    if (window.scrollY > 40) {
+
+                        siteHeader.classList.add(
+                            "scrolled"
+                        );
+
+                    } else {
+
+                        siteHeader.classList.remove(
+                            "scrolled"
+                        );
+
+                    }
+
+                }
+
+
+                window.addEventListener(
+                    "scroll",
+                    updateHeader
+                );
+
+                updateHeader();
+
+
+                /* CURRENT YEAR */
+
+                const currentYear =
+                    document.getElementById("currentYear");
+
+                if (currentYear) {
+
+                    currentYear.textContent =
+                        new Date().getFullYear();
+
+                }
+
+            }
+        );
+
+    </script>
 
 </body>
-      </html>
+    </html>
