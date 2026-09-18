@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -10,10 +8,10 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>
-    Photizo Admin Dashboard
-  </title>
+  <title>Photizo Gospel Mission - Admin</title>
 
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
 
@@ -23,13 +21,14 @@
       padding: 0;
     }
 
-
     body {
-      font-family: Arial, sans-serif;
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
       background: #f5f7fb;
       color: #1f2937;
     }
-
 
     button,
     input,
@@ -37,1197 +36,750 @@
       font-family: inherit;
     }
 
-
     button {
       cursor: pointer;
     }
 
-
     /* =====================================================
        LOGIN
-    ===================================================== */
+       ===================================================== */
 
     #loginPage {
-
       min-height: 100vh;
-
       display: flex;
-
       align-items: center;
-
       justify-content: center;
-
       padding: 20px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #111827,
-          #1f2937
-        );
-
+      background: #f5f7fb;
     }
-
 
     .login-box {
-
       width: 100%;
-
       max-width: 420px;
-
-      background: #ffffff;
-
+      background: white;
       padding: 35px;
-
-      border-radius: 14px;
-
+      border-radius: 16px;
       box-shadow:
-        0 15px 40px
-        rgba(0, 0, 0, 0.20);
-
+        0 10px 35px rgba(0,0,0,0.08);
     }
-
 
     .login-box h1 {
-
       text-align: center;
-
       margin-bottom: 8px;
-
-      color: #111827;
-
+      font-size: 25px;
     }
-
 
     .login-box p {
-
       text-align: center;
-
       color: #6b7280;
-
       margin-bottom: 25px;
-
     }
 
+    .form-group {
+      margin-bottom: 16px;
+    }
 
-    .login-box input {
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 7px;
+    }
 
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
       width: 100%;
-
       padding: 13px;
-
-      margin-bottom: 15px;
-
-      border:
-        1px solid #d1d5db;
-
+      border: 1px solid #d1d5db;
       border-radius: 8px;
-
-      font-size: 15px;
-
-    }
-
-
-    .login-box input:focus {
-
       outline: none;
-
-      border-color: #111827;
-
-    }
-
-
-    .login-box button {
-
-      width: 100%;
-
-      padding: 13px;
-
-      border: none;
-
-      border-radius: 8px;
-
-      background: #111827;
-
-      color: white;
-
       font-size: 15px;
-
+      background: white;
     }
 
-
-    .login-box button:hover {
-
-      background: #000000;
-
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #111827;
     }
 
+    .login-button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      background: #111827;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .login-button:hover {
+      opacity: .9;
+    }
 
     #loginMessage {
-
       margin-top: 15px;
-
       text-align: center;
-
       color: #dc2626;
-
-      line-height: 1.5;
-
     }
 
 
     /* =====================================================
        DASHBOARD
-    ===================================================== */
+       ===================================================== */
 
     #dashboard {
-
       display: none;
-
       min-height: 100vh;
+    }
 
+    .topbar {
+      height: 65px;
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .topbar h2 {
+      font-size: 19px;
+    }
+
+    .admin-area {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    #adminBadge {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .logout-button {
+      border: none;
+      background: #dc2626;
+      color: white;
+      padding: 9px 14px;
+      border-radius: 7px;
+      font-weight: 600;
     }
 
 
     /* =====================================================
        SIDEBAR
-    ===================================================== */
+       ===================================================== */
+
+    .dashboard-layout {
+      display: flex;
+      min-height: calc(100vh - 65px);
+    }
 
     .sidebar {
-
-      position: fixed;
-
-      left: 0;
-
-      top: 0;
-
-      width: 250px;
-
-      height: 100vh;
-
+      width: 235px;
       background: #111827;
+      padding: 20px 12px;
+      flex-shrink: 0;
+    }
 
+    .sidebar-title {
       color: white;
-
-      padding: 25px 15px;
-
-      z-index: 1000;
-
-      overflow-y: auto;
-
+      font-size: 17px;
+      font-weight: bold;
+      padding: 10px 13px 20px;
     }
-
-
-    .brand {
-
-      padding:
-        0 15px 30px;
-
-      border-bottom:
-        1px solid #374151;
-
-      margin-bottom: 20px;
-
-    }
-
-
-    .brand h2 {
-
-      font-size: 20px;
-
-    }
-
-
-    .brand span {
-
-      display: block;
-
-      color: #9ca3af;
-
-      font-size: 12px;
-
-      margin-top: 5px;
-
-      line-height: 1.5;
-
-    }
-
 
     .nav-item {
-
-      display: block;
-
       width: 100%;
-
-      padding: 13px 15px;
-
-      margin-bottom: 6px;
-
-      border: none;
-
-      background: transparent;
-
-      color: #d1d5db;
-
+      display: block;
       text-align: left;
-
-      border-radius: 8px;
-
+      border: none;
+      background: transparent;
+      color: #d1d5db;
+      padding: 13px;
+      margin-bottom: 5px;
+      border-radius: 7px;
       font-size: 14px;
-
     }
-
 
     .nav-item:hover,
     .nav-item.active {
-
       background: #374151;
-
       color: white;
-
-    }
-
-
-    .logout-btn {
-
-      position: absolute;
-
-      bottom: 25px;
-
-      left: 15px;
-
-      right: 15px;
-
-      width:
-        calc(100% - 30px);
-
-      padding: 12px;
-
-      border:
-        1px solid #4b5563;
-
-      background: transparent;
-
-      color: #d1d5db;
-
-      border-radius: 8px;
-
-    }
-
-
-    .logout-btn:hover {
-
-      background: #374151;
-
     }
 
 
     /* =====================================================
-       MAIN CONTENT
-    ===================================================== */
+       MAIN
+       ===================================================== */
 
     .main-content {
+      flex: 1;
+      padding: 25px;
+      overflow-x: auto;
+    }
 
-      margin-left: 250px;
+    .section {
+      display: none;
+    }
 
-      padding: 30px;
+    .section.active {
+      display: block;
+    }
 
+    .section-header {
+      margin-bottom: 22px;
+    }
+
+    .section-header h1 {
+      font-size: 25px;
+      margin-bottom: 6px;
+    }
+
+    .section-header p {
+      color: #6b7280;
     }
 
 
-    .topbar {
+    /* =====================================================
+       STAT CARDS
+       ===================================================== */
 
-      display: flex;
-
-      justify-content: space-between;
-
-      align-items: center;
-
-      margin-bottom: 30px;
-
-      gap: 20px;
-
+    .stats-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
     }
 
-
-    .topbar h1 {
-
-      font-size: 28px;
-
-    }
-
-
-    .admin-badge {
-
+    .stat-card {
       background: white;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+    }
 
-      padding: 10px 15px;
+    .stat-card span {
+      display: block;
+      color: #6b7280;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
 
-      border-radius: 8px;
-
-      box-shadow:
-        0 2px 8px
-        rgba(0, 0, 0, 0.05);
-
-      font-size: 14px;
-
+    .stat-card strong {
+      font-size: 28px;
     }
 
 
     /* =====================================================
        CARDS
-    ===================================================== */
-
-    .cards {
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(4, 1fr);
-
-      gap: 20px;
-
-      margin-bottom: 30px;
-
-    }
-
+       ===================================================== */
 
     .card {
-
       background: white;
-
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
       padding: 22px;
-
-      border-radius: 12px;
-
-      box-shadow:
-        0 2px 10px
-        rgba(0, 0, 0, 0.05);
-
+      margin-bottom: 25px;
     }
 
-
-    .card-title {
-
-      color: #6b7280;
-
-      font-size: 13px;
-
-      margin-bottom: 10px;
-
-    }
-
-
-    .card-value {
-
-      font-size: 28px;
-
-      font-weight: bold;
-
-      color: #111827;
-
+    .card h2 {
+      margin-bottom: 17px;
+      font-size: 19px;
     }
 
 
     /* =====================================================
-       CONTENT BOX
-    ===================================================== */
+       FORMS
+       ===================================================== */
 
-    .content-box {
+    .cms-form {
+      max-width: 750px;
+    }
 
+    .cms-form input,
+    .cms-form textarea {
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 15px;
       background: white;
-
-      padding: 25px;
-
-      border-radius: 12px;
-
-      box-shadow:
-        0 2px 10px
-        rgba(0, 0, 0, 0.05);
-
-      margin-bottom: 20px;
-
     }
 
-
-    .content-box h2 {
-
-      margin-bottom: 10px;
-
+    .cms-form textarea {
+      min-height: 110px;
+      resize: vertical;
     }
 
-
-    .content-box h3 {
-
-      color: #111827;
-
+    .cms-form input:focus,
+    .cms-form textarea:focus {
+      outline: none;
+      border-color: #111827;
     }
 
-
-    .content-box p {
-
-      color: #6b7280;
-
-      line-height: 1.6;
-
-    }
-
-
-    /* =====================================================
-       SECTIONS
-    ===================================================== */
-
-    .section {
-
-      display: none;
-
-    }
-
-
-    .section.active {
-
+    .file-help {
       display: block;
-
+      margin-top: -7px;
+      margin-bottom: 15px;
+      color: #6b7280;
+      font-size: 12px;
     }
 
-
-    /* =====================================================
-       SECTION HEADER
-    ===================================================== */
-
-    .section-header {
-
+    .checkbox-row {
       display: flex;
-
-      justify-content: space-between;
-
       align-items: center;
-
-      gap: 15px;
-
-      margin-bottom: 20px;
-
+      gap: 8px;
+      margin: 8px 0 17px;
     }
 
-
-    .section-header h2 {
-
+    .checkbox-row input {
+      width: auto;
       margin: 0;
-
     }
-
-
-    /* =====================================================
-       BUTTONS
-    ===================================================== */
 
     .primary-btn {
-
-      padding:
-        13px 20px;
-
       border: none;
-
-      border-radius: 8px;
-
       background: #111827;
-
       color: white;
-
-      font-size: 14px;
-
+      padding: 11px 17px;
+      border-radius: 7px;
+      font-weight: 600;
     }
-
-
-    .primary-btn:hover {
-
-      background: #000000;
-
-    }
-
 
     .secondary-btn {
-
-      padding:
-        13px 20px;
-
-      border: none;
-
-      border-radius: 8px;
-
-      background: #6b7280;
-
-      color: white;
-
-      font-size: 14px;
-
+      border: 1px solid #d1d5db;
+      background: white;
+      color: #374151;
+      padding: 11px 17px;
+      border-radius: 7px;
+      font-weight: 600;
+      margin-left: 6px;
     }
-
-
-    .secondary-btn:hover {
-
-      background: #4b5563;
-
-    }
-
 
     .delete-btn {
-
-      padding:
-        8px 12px;
-
       border: none;
-
-      border-radius: 6px;
-
       background: #dc2626;
-
       color: white;
-
-      font-size: 12px;
-
-    }
-
-
-    .delete-btn:hover {
-
-      background: #b91c1c;
-
+      padding: 9px 13px;
+      border-radius: 6px;
+      font-weight: 600;
     }
 
 
     /* =====================================================
-       EVENTS
-    ===================================================== */
+       TABLE
+       ===================================================== */
 
-    .add-event-form {
-
-      display: flex;
-
-      gap: 10px;
-
-      margin-bottom: 25px;
-
-    }
-
-
-    .add-event-form input {
-
-      flex: 1;
-
-      padding: 13px;
-
-      border:
-        1px solid #d1d5db;
-
-      border-radius: 8px;
-
-      font-size: 15px;
-
-    }
-
-
-    .add-event-form input:focus {
-
-      outline: none;
-
-      border-color: #111827;
-
-    }
-
-
-    /* =====================================================
-       TABLES
-    ===================================================== */
-
-    .events-table-wrapper {
-
-      overflow-x: auto;
-
-    }
-
-
-    .events-table {
-
+    .table-wrapper {
       width: 100%;
+      overflow-x: auto;
+    }
 
+    table {
+      width: 100%;
       border-collapse: collapse;
-
-      min-width: 600px;
-
+      min-width: 650px;
     }
 
-
-    .events-table th,
-    .events-table td {
-
-      padding: 14px;
-
+    th,
+    td {
       text-align: left;
-
-      border-bottom:
-        1px solid #e5e7eb;
-
-    }
-
-
-    .events-table th {
-
-      background: #f9fafb;
-
-      color: #374151;
-
-      font-size: 13px;
-
-    }
-
-
-    .events-table td {
-
-      color: #4b5563;
-
+      padding: 13px;
+      border-bottom: 1px solid #e5e7eb;
       font-size: 14px;
+    }
 
+    th {
+      background: #f9fafb;
+      font-weight: 700;
+    }
+
+    tr:hover td {
+      background: #fafafa;
     }
 
 
     /* =====================================================
        MESSAGES
-    ===================================================== */
+       ===================================================== */
 
-    .event-message {
-
-      margin-bottom: 15px;
-
+    .event-message,
+    #sermonMessage,
+    #registrationMessage,
+    #attendanceMessage {
+      margin: 12px 0;
       font-size: 14px;
-
-      line-height: 1.5;
-
     }
-
 
     .success-message {
-
-      color: #16a34a;
-
+      color: #15803d;
     }
-
 
     .error-message {
-
       color: #dc2626;
-
     }
-
-
-    .empty-message {
-
-      text-align: center;
-
-      padding: 30px;
-
-      color: #6b7280;
-
-    }
-
 
     .loading-message {
-
       text-align: center;
-
-      padding: 30px;
-
       color: #6b7280;
-
+      padding: 25px;
     }
 
-
-    /* =====================================================
-       SERMON FORM
-    ===================================================== */
-
-    .sermon-form {
-
-      display: grid;
-
-      gap: 15px;
-
-    }
-
-
-    .form-input,
-    .form-textarea {
-
-      width: 100%;
-
-      padding: 13px;
-
-      border:
-        1px solid #d1d5db;
-
-      border-radius: 8px;
-
-      font-size: 15px;
-
-    }
-
-
-    .form-input:focus,
-    .form-textarea:focus {
-
-      outline: none;
-
-      border-color: #111827;
-
-    }
-
-
-    .form-textarea {
-
-      resize: vertical;
-
-    }
-
-
-    .file-field label {
-
-      display: block;
-
-      margin-bottom: 8px;
-
-      font-weight: bold;
-
-    }
-
-
-    .file-field input {
-
-      width: 100%;
-
-      padding: 12px;
-
-      border:
-        1px solid #d1d5db;
-
-      border-radius: 8px;
-
-    }
-
-
-    .file-help {
-
-      display: block;
-
-      margin-top: 6px;
-
+    .empty-message {
+      text-align: center;
       color: #6b7280;
-
-      font-size: 12px;
-
-      line-height: 1.5;
-
-    }
-
-
-    .publish-row {
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 10px;
-
-      cursor: pointer;
-
-    }
-
-
-    .publish-row input {
-
-      width: 18px;
-
-      height: 18px;
-
-    }
-
-
-    .form-buttons {
-
-      display: flex;
-
-      gap: 10px;
-
-      flex-wrap: wrap;
-
+      padding: 25px;
     }
 
 
     /* =====================================================
        MOBILE
-    ===================================================== */
+       ===================================================== */
 
-    @media (max-width: 900px) {
+    @media (max-width: 850px) {
 
       .sidebar {
-
-        width: 210px;
-
+        width: 75px;
+        padding: 12px 7px;
       }
 
+      .sidebar-title {
+        display: none;
+      }
+
+      .nav-item {
+        text-align: center;
+        padding: 12px 5px;
+        font-size: 11px;
+      }
 
       .main-content {
-
-        margin-left: 210px;
-
+        padding: 17px;
       }
 
-
-      .cards {
-
+      .stats-grid {
         grid-template-columns:
-          repeat(2, 1fr);
+          repeat(2, minmax(0, 1fr));
+      }
 
+      .topbar {
+        padding: 0 15px;
+      }
+
+      .topbar h2 {
+        font-size: 15px;
+      }
+
+      #adminBadge {
+        display: none;
       }
 
     }
 
 
-    @media (max-width: 650px) {
+    @media (max-width: 500px) {
 
-      .sidebar {
-
-        position: relative;
-
-        width: 100%;
-
-        height: auto;
-
-      }
-
-
-      .logout-btn {
-
-        position: static;
-
-        width: 100%;
-
-        margin-top: 15px;
-
-      }
-
-
-      .main-content {
-
-        margin-left: 0;
-
-        padding: 20px;
-
-      }
-
-
-      .topbar {
-
-        align-items: flex-start;
-
-        flex-direction: column;
-
-      }
-
-
-      .cards {
-
+      .stats-grid {
         grid-template-columns: 1fr;
-
       }
 
-
-      .add-event-form {
-
-        flex-direction: column;
-
+      .login-box {
+        padding: 25px 20px;
       }
 
-
-      .primary-btn,
-      .secondary-btn {
-
-        width: 100%;
-
-      }
-
-
-      .section-header {
-
-        align-items: flex-start;
-
-        flex-direction: column;
-
-      }
-
-
-      .form-buttons {
-
-        flex-direction: column;
-
+      .section-header h1 {
+        font-size: 22px;
       }
 
     }
 
   </style>
-
 </head>
 
 
 <body>
 
 
-  <!-- =====================================================
-       LOGIN PAGE
-  ====================================================== -->
+<!-- =======================================================
+     LOGIN PAGE
+     ======================================================= -->
 
-  <div id="loginPage">
+<div id="loginPage">
 
-    <div class="login-box">
+  <div class="login-box">
 
-      <h1>
-        Photizo Admin
-      </h1>
+    <h1>
+      Photizo Gospel Mission
+    </h1>
 
-      <p>
-        Administrator Login
-      </p>
-
-
-      <input
-        type="email"
-        id="email"
-        placeholder="Admin email"
-        autocomplete="email"
-      >
+    <p>
+      Administrator Login
+    </p>
 
 
-      <input
-        type="password"
-        id="password"
-        placeholder="Password"
-        autocomplete="current-password"
-      >
+    <form
+      onsubmit="
+        event.preventDefault();
+        login();
+      "
+    >
+
+      <div class="form-group">
+
+        <label for="email">
+          Email
+        </label>
+
+        <input
+          type="email"
+          id="email"
+          placeholder="Admin email"
+          autocomplete="email"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="password">
+          Password
+        </label>
+
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          autocomplete="current-password"
+          required
+        >
+
+      </div>
 
 
       <button
-        type="button"
-        id="loginButton"
-        onclick="login()"
+        type="submit"
+        class="login-button"
       >
         Login
       </button>
 
+    </form>
 
-      <div id="loginMessage"></div>
+
+    <div id="loginMessage"></div>
+
+  </div>
+
+</div>
+
+
+
+<!-- =======================================================
+     DASHBOARD
+     ======================================================= -->
+
+<div id="dashboard">
+
+
+  <!-- TOP BAR -->
+
+  <div class="topbar">
+
+    <h2>
+      Photizo Admin Dashboard
+    </h2>
+
+    <div class="admin-area">
+
+      <span id="adminBadge">
+        Administrator
+      </span>
+
+      <button
+        class="logout-button"
+        onclick="logout()"
+      >
+        Logout
+      </button>
 
     </div>
 
   </div>
 
 
-  <!-- =====================================================
-       DASHBOARD
-  ====================================================== -->
 
-  <div id="dashboard">
+  <div class="dashboard-layout">
 
 
-    <!-- SIDEBAR -->
+    <!-- ===================================================
+         SIDEBAR
+         =================================================== -->
 
     <aside class="sidebar">
 
-      <div class="brand">
-
-        <h2>
-          Photizo
-        </h2>
-
-        <span>
-          Gospel Mission International
-        </span>
-
+      <div class="sidebar-title">
+        ADMIN
       </div>
 
 
       <button
-        type="button"
         class="nav-item active"
-        onclick="showSection('overview', this)"
+        onclick="
+          showSection(
+            'overview',
+            this
+          )
+        "
       >
         Dashboard
       </button>
 
 
       <button
-        type="button"
         class="nav-item"
-        onclick="showSection('events', this)"
-      >
-        Events
-      </button>
-
-
-      <button
-        type="button"
-        class="nav-item"
-        onclick="showSection('registrations', this)"
-      >
-        Event Registrations
-      </button>
-
-
-      <button
-        type="button"
-        class="nav-item"
-        onclick="showSection('attendance', this)"
-      >
-        Event Attendance
-      </button>
-
-
-      <button
-        type="button"
-        class="nav-item"
-        onclick="showSection('sermons', this)"
+        onclick="
+          showSection(
+            'sermons',
+            this
+          )
+        "
       >
         Sermons
       </button>
 
 
       <button
-        type="button"
         class="nav-item"
-        onclick="showSection('admin', this)"
+        onclick="
+          showSection(
+            'events',
+            this
+          )
+        "
       >
-        Admin
+        Events
       </button>
 
 
       <button
-        type="button"
         class="nav-item"
-        onclick="showSection('settings', this)"
+        onclick="
+          showSection(
+            'registrations',
+            this
+          )
+        "
       >
-        Settings
+        Registrations
       </button>
 
 
       <button
-        type="button"
-        class="logout-btn"
-        onclick="logout()"
+        class="nav-item"
+        onclick="
+          showSection(
+            'attendance',
+            this
+          )
+        "
       >
-        Logout
+        Attendance
       </button>
 
     </aside>
 
 
+
     <!-- ===================================================
          MAIN CONTENT
-    ==================================================== -->
+         =================================================== -->
 
     <main class="main-content">
 
 
-      <div class="topbar">
-
-        <div>
-
-          <h1>
-            Admin Dashboard
-          </h1>
-
-        </div>
-
-
-        <div
-          class="admin-badge"
-          id="adminBadge"
-        >
-          Administrator
-        </div>
-
-      </div>
-
-
       <!-- =================================================
            OVERVIEW
-      ================================================== -->
+           ================================================= -->
 
       <section
         id="overview"
         class="section active"
       >
 
-        <div class="cards">
+        <div class="section-header">
+
+          <h1>
+            Dashboard
+          </h1>
+
+          <p>
+            Manage Photizo Gospel Mission International.
+          </p>
+
+        </div>
 
 
-          <div class="card">
-
-            <div class="card-title">
-              Events
-            </div>
-
-            <div
-              class="card-value"
-              id="eventsCount"
-            >
-              0
-            </div>
-
-          </div>
+        <div class="stats-grid">
 
 
-          <div class="card">
+          <div class="stat-card">
 
-            <div class="card-title">
-              Event Registrations
-            </div>
-
-            <div
-              class="card-value"
-              id="registrationsOverviewCount"
-            >
-              0
-            </div>
-
-          </div>
-
-
-          <div class="card">
-
-            <div class="card-title">
-              Attendance
-            </div>
-
-            <div
-              class="card-value"
-              id="attendanceCount"
-            >
-              0
-            </div>
-
-          </div>
-
-
-          <div class="card">
-
-            <div class="card-title">
+            <span>
               Sermons
-            </div>
+            </span>
 
-            <div
-              class="card-value"
-              id="sermonsCount"
-            >
+            <strong id="sermonsCount">
               0
-            </div>
+            </strong>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <span>
+              Events
+            </span>
+
+            <strong id="eventsCount">
+              0
+            </strong>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <span>
+              Registrations
+            </span>
+
+            <strong id="registrationsCount">
+              0
+            </strong>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <span>
+              Attendance
+            </span>
+
+            <strong id="attendanceCount">
+              0
+            </strong>
 
           </div>
 
@@ -1235,17 +787,16 @@
         </div>
 
 
-        <div class="content-box">
+        <div class="card">
 
           <h2>
-            Welcome to the Admin Dashboard
+            Welcome
           </h2>
 
           <p>
-            From this dashboard, administrators can
-            manage Photizo Gospel Mission International
-            website content, events, registrations,
-            attendance and sermons.
+            From this dashboard you can upload sermons,
+            create events, upload event flyers and manage
+            registrations.
           </p>
 
         </div>
@@ -1253,87 +804,207 @@
       </section>
 
 
+
       <!-- =================================================
-           EVENTS
-      ================================================== -->
+           SERMONS
+           ================================================= -->
 
       <section
-        id="events"
+        id="sermons"
         class="section"
       >
 
-        <div class="content-box">
+        <div class="section-header">
 
-          <div class="section-header">
+          <h1>
+            Sermons
+          </h1>
+
+          <p>
+            Upload and manage your sermons.
+          </p>
+
+        </div>
+
+
+
+        <!-- ADD SERMON -->
+
+        <div class="card">
+
+          <h2 id="sermonFormTitle">
+            Add New Sermon
+          </h2>
+
+
+          <form
+            id="sermonForm"
+            class="cms-form"
+            onsubmit="
+              event.preventDefault();
+              saveSermon();
+            "
+          >
+
+            <input
+              type="hidden"
+              id="sermonId"
+            >
+
+
+            <label>
+              Sermon Title
+            </label>
+
+            <input
+              type="text"
+              id="sermonTitle"
+              placeholder="Enter sermon title"
+              required
+            >
+
+
+            <label>
+              Speaker
+            </label>
+
+            <input
+              type="text"
+              id="sermonSpeaker"
+              placeholder="Enter speaker name"
+            >
+
+
+            <label>
+              Sermon Date
+            </label>
+
+            <input
+              type="date"
+              id="sermonDate"
+            >
+
+
+            <label>
+              Description
+            </label>
+
+            <textarea
+              id="sermonDescription"
+              placeholder="Enter sermon description"
+            ></textarea>
+
+
+            <label>
+              Sermon Audio
+            </label>
+
+            <input
+              type="file"
+              id="sermonAudio"
+              accept="audio/*"
+            >
+
+            <small class="file-help">
+              Upload MP3, M4A, WAV or another supported audio file.
+            </small>
+
+
+            <label>
+              Sermon Image
+            </label>
+
+            <input
+              type="file"
+              id="sermonImage"
+              accept="image/*"
+            >
+
+            <small class="file-help">
+              Optional sermon cover image.
+            </small>
+
+
+            <label class="checkbox-row">
+
+              <input
+                type="checkbox"
+                id="sermonPublished"
+              >
+
+              <span>
+                Publish sermon immediately
+              </span>
+
+            </label>
+
 
             <div>
 
-              <h2>
-                Events
-              </h2>
+              <button
+                type="submit"
+                class="primary-btn"
+                id="saveSermonButton"
+              >
+                Upload & Save Sermon
+              </button>
 
-              <p>
-                Create and manage ministry events.
-              </p>
+
+              <button
+                type="button"
+                class="secondary-btn"
+                id="cancelEditButton"
+                style="display:none;"
+                onclick="cancelSermonEdit()"
+              >
+                Cancel Edit
+              </button>
 
             </div>
 
 
-            <button
-              type="button"
-              class="primary-btn"
-              onclick="loadEvents()"
-            >
-              Refresh
-            </button>
+            <div id="sermonMessage"></div>
 
-          </div>
+          </form>
+
+        </div>
 
 
-          <div
-            id="eventMessage"
-            class="event-message"
-          ></div>
 
+        <!-- SERMON LIST -->
 
-          <div class="add-event-form">
+        <div class="card">
 
-            <input
-              type="text"
-              id="eventTitle"
-              placeholder="Enter event title"
-            >
+          <h2>
+            All Sermons
+          </h2>
 
+          <div class="table-wrapper">
 
-            <button
-              type="button"
-              class="primary-btn"
-              onclick="addEvent()"
-            >
-              Add Event
-            </button>
-
-          </div>
-
-
-          <div class="events-table-wrapper">
-
-            <table class="events-table">
+            <table>
 
               <thead>
 
                 <tr>
 
                   <th>
-                    ID
+                    Title
                   </th>
 
                   <th>
-                    Event Title
+                    Speaker
                   </th>
 
                   <th>
-                    Action
+                    Date
+                  </th>
+
+                  <th>
+                    Status
+                  </th>
+
+                  <th>
+                    Actions
                   </th>
 
                 </tr>
@@ -1341,15 +1012,15 @@
               </thead>
 
 
-              <tbody id="eventsTableBody">
+              <tbody id="sermonsTableBody">
 
                 <tr>
 
                   <td
-                    colspan="3"
-                    class="loading-message"
+                    colspan="5"
+                    class="empty-message"
                   >
-                    Loading events...
+                    No sermons loaded.
                   </td>
 
                 </tr>
@@ -1365,72 +1036,252 @@
       </section>
 
 
+
       <!-- =================================================
-           EVENT REGISTRATIONS
-      ================================================== -->
+           EVENTS
+           ================================================= -->
+
+      <section
+        id="events"
+        class="section"
+      >
+
+        <div class="section-header">
+
+          <h1>
+            Events
+          </h1>
+
+          <p>
+            Create and manage ministry events.
+          </p>
+
+        </div>
+
+
+
+        <!-- EVENT FORM -->
+
+        <div class="card">
+
+          <h2>
+            Add Event
+          </h2>
+
+
+          <form
+            class="cms-form add-event-form"
+            onsubmit="
+              event.preventDefault();
+              addEvent();
+            "
+          >
+
+            <input
+              type="hidden"
+              id="eventId"
+            >
+
+
+            <label>
+              Event Title
+            </label>
+
+            <input
+              type="text"
+              id="eventTitle"
+              placeholder="Enter event title"
+              required
+            >
+
+
+            <label>
+              Event Date
+            </label>
+
+            <input
+              type="date"
+              id="eventDate"
+            >
+
+
+            <label>
+              Event Description
+            </label>
+
+            <textarea
+              id="eventDescription"
+              placeholder="Enter event description"
+            ></textarea>
+
+
+            <label>
+              Registration Link
+            </label>
+
+            <input
+              type="url"
+              id="eventRegistrationLink"
+              placeholder="https://..."
+            >
+
+
+            <label>
+              Event Flyer
+            </label>
+
+            <input
+              type="file"
+              id="eventFlyer"
+              accept="image/*"
+            >
+
+            <small class="file-help">
+              Upload the flyer for this event.
+            </small>
+
+
+            <label class="checkbox-row">
+
+              <input
+                type="checkbox"
+                id="eventPublished"
+              >
+
+              <span>
+                Publish event
+              </span>
+
+            </label>
+
+
+            <div>
+
+              <button
+                type="submit"
+                class="primary-btn"
+              >
+                Add Event
+              </button>
+
+              <buttontype="button"
+                class="secondary-btn"
+                id="cancelEventEditButton"
+                style="display:none;"
+                onclick="cancelEventEdit()"
+              >
+                Cancel Edit
+              </button>
+
+            </div>
+
+
+            <div
+              id="eventMessage"
+              class="event-message"
+            ></div>
+
+          </form>
+
+        </div>
+
+
+
+        <!-- EVENTS TABLE -->
+
+        <div class="card">
+
+          <h2>
+            All Events
+          </h2>
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    ID
+                  </th>
+
+                  <th>
+                    Event
+                  </th>
+
+                  <th>
+                    Actions
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody id="eventsTableBody">
+
+                <tr>
+
+                  <td
+                    colspan="3"
+                    class="empty-message"
+                  >
+                    No events loaded.
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =================================================
+           REGISTRATIONS
+           ================================================= -->
 
       <section
         id="registrations"
         class="section"
       >
 
-        <div class="content-box">
+        <div class="section-header">
 
-          <div class="section-header">
+          <h1>
+            Event Registrations
+          </h1>
 
-            <div>
+          <p>
+            View people who registered for events.
+          </p>
 
-              <h2>
-                Event Registrations
-              </h2>
-
-              <p>
-                View people who registered for events.
-              </p>
-
-            </div>
+        </div>
 
 
-            <button
-              type="button"
-              class="primary-btn"
-              onclick="loadRegistrations()"
-            >
-              Refresh
-            </button>
+        <div class="card">
 
-          </div>
-
-
-          <div class="cards">
-
-            <div class="card">
-
-              <div class="card-title">
-                Total Registrations
-              </div>
-
-              <div
-                class="card-value"
-                id="registrationsCount"
-              >
-                0
-              </div>
-
-            </div>
-
-          </div>
+          <h2>
+            Registrations
+          </h2>
 
 
           <div
             id="registrationMessage"
-            class="event-message"
           ></div>
 
 
-          <div class="events-table-wrapper">
+          <div class="table-wrapper">
 
-            <table class="events-table">
+            <table>
 
               <thead>
 
@@ -1467,9 +1318,9 @@
 
                   <td
                     colspan="5"
-                    class="loading-message"
+                    class="empty-message"
                   >
-                    Loading registrations...
+                    No registrations loaded.
                   </td>
 
                 </tr>
@@ -1482,63 +1333,47 @@
 
         </div>
 
-  </section><!-- =================================================
-           EVENT ATTENDANCE
-      ================================================== -->
+      </section>
+
+
+
+      <!-- =================================================
+           ATTENDANCE
+           ================================================= -->
 
       <section
         id="attendance"
         class="section"
       >
 
-        <div class="content-box">
+        <div class="section-header">
 
-          <div class="section-header">
+          <h1>
+            Event Attendance
+          </h1>
 
-            <div>
+          <p>
+            View and manage attendance records.
+          </p>
 
-              <h2>
-                Event Attendance
-              </h2>
-
-              <p>
-                Manage event attendance records.
-              </p>
-
-            </div>
-
-          </div>
+        </div>
 
 
-          <div class="cards">
+        <div class="card">
 
-            <div class="card">
-
-              <div class="card-title">
-                Total Attendance
-              </div>
-
-              <div
-                class="card-value"
-                id="attendanceTotal"
-              >
-                0
-              </div>
-
-            </div>
-
-          </div>
+          <h2>
+            Attendance
+          </h2>
 
 
           <div
             id="attendanceMessage"
-            class="event-message"
           ></div>
 
 
-          <div class="events-table-wrapper">
+          <div class="table-wrapper">
 
-            <table class="events-table">
+            <table>
 
               <thead>
 
@@ -1575,10 +1410,9 @@
 
                   <td
                     colspan="5"
-                    class="loading-message"
+                    class="empty-message"
                   >
-                    Attendance management will be
-                    connected here.
+                    No attendance loaded.
                   </td>
 
                 </tr>
@@ -1588,389 +1422,6 @@
             </table>
 
           </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =================================================
-           SERMONS
-      ================================================== -->
-
-      <section
-        id="sermons"
-        class="section"
-      >
-
-
-        <!-- SERMON MANAGEMENT HEADER -->
-
-        <div class="content-box">
-
-          <div class="section-header">
-
-            <div>
-
-              <h2>
-                Sermon Management
-              </h2>
-
-              <p>
-                Upload, edit, publish, unpublish and
-                delete sermons for the Photizo Gospel
-                Mission International website.
-              </p>
-
-            </div>
-
-
-            <button
-              type="button"
-              class="primary-btn"
-              onclick="loadSermons()"
-            >
-              Refresh
-            </button>
-
-          </div>
-
-
-          <!-- SERMON MESSAGE -->
-
-          <div
-            id="sermonMessage"
-            class="event-message"
-          ></div>
-
-
-          <!-- =============================================
-               SERMON FORM
-          ============================================== -->
-
-          <div class="content-box">
-
-            <h3
-              id="sermonFormTitle"
-              style="margin-bottom:20px;"
-            >
-              Add New Sermon
-            </h3>
-
-
-            <!-- Hidden ID for editing -->
-
-            <input
-              type="hidden"
-              id="sermonId"
-            >
-
-
-            <div class="sermon-form">
-
-
-              <!-- SERMON TITLE -->
-
-              <input
-                type="text"
-                id="sermonTitle"
-                class="form-input"
-                placeholder="Sermon title"
-              >
-
-
-              <!-- SPEAKER -->
-
-              <input
-                type="text"
-                id="sermonSpeaker"
-                class="form-input"
-                placeholder="Speaker / Pastor"
-              >
-
-
-              <!-- DATE -->
-
-              <input
-                type="date"
-                id="sermonDate"
-                class="form-input"
-              >
-
-
-              <!-- DESCRIPTION -->
-
-              <textarea
-                id="sermonDescription"
-                class="form-textarea"
-                placeholder="Sermon description"
-                rows="5"
-              ></textarea>
-
-
-              <!-- =========================================
-                   AUDIO FILE
-              ========================================== -->
-
-              <div class="file-field">
-
-                <label
-                  for="sermonAudio"
-                >
-                  Sermon Audio
-                </label>
-
-
-                <input
-                  type="file"
-                  id="sermonAudio"
-                  accept="audio/*"
-                >
-
-
-                <small class="file-help">
-
-                  Select the sermon audio file to
-                  upload.
-
-                  When editing a sermon, leave this
-                  empty if you do not want to replace
-                  the existing audio.
-
-                </small>
-
-              </div>
-
-
-              <!-- =========================================
-                   SERMON IMAGE
-              ========================================== -->
-
-              <div class="file-field">
-
-                <label
-                  for="sermonImage"
-                >
-                  Sermon Image
-                </label>
-
-
-                <input
-                  type="file"
-                  id="sermonImage"
-                  accept="image/*"
-                >
-
-
-                <small class="file-help">
-
-                  Optional.
-
-                  When editing, select a new image
-                  only if you want to replace the
-                  existing image.
-
-                </small>
-
-              </div>
-
-
-              <!-- =========================================
-                   PUBLISH CHECKBOX
-              ========================================== -->
-
-              <label
-                class="publish-row"
-              >
-
-                <input
-                  type="checkbox"
-                  id="sermonPublished"
-                >
-
-
-                <span>
-                  Publish this sermon
-                </span>
-
-              </label>
-
-
-              <!-- =========================================
-                   FORM BUTTONS
-              ========================================== -->
-
-              <div
-                class="form-buttons"
-              >
-
-                <button
-                  type="button"
-                  id="saveSermonButton"
-                  class="primary-btn"
-                  onclick="saveSermon()"
-                >
-                  Upload &amp; Save Sermon
-                </button>
-
-
-                <button
-                  type="button"
-                  id="cancelEditButton"
-                  class="secondary-btn"
-                  onclick="cancelSermonEdit()"
-                  style="display:none;"
-                >
-                  Cancel Edit
-                </button>
-
-              </div>
-
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- ===============================================
-             EXISTING SERMONS
-        ================================================ -->
-
-        <div class="content-box">
-
-          <div class="section-header">
-
-            <div>
-
-              <h3>
-                Existing Sermons
-              </h3>
-
-              <p>
-                Manage sermons that have already
-                been uploaded.
-              </p>
-
-            </div>
-
-
-            <button
-              type="button"
-              class="primary-btn"
-              onclick="loadSermons()"
-            >
-              Refresh
-            </button>
-
-          </div>
-
-
-          <div class="events-table-wrapper">
-
-            <table class="events-table">
-
-              <thead>
-
-                <tr>
-
-                  <th>
-                    Title
-                  </th>
-
-                  <th>
-                    Speaker
-                  </th>
-
-                  <th>
-                    Date
-                  </th>
-
-                  <th>
-                    Status
-                  </th>
-
-                  <th>
-                    Action
-                  </th>
-
-                </tr>
-
-              </thead>
-
-
-              <tbody
-                id="sermonsTableBody"
-              >
-
-                <tr>
-
-                  <td
-                    colspan="5"
-                    class="loading-message"
-                  >
-                    Loading sermons...
-                  </td>
-
-                </tr>
-
-              </tbody>
-
-            </table>
-
-          </div>
-
-        </div>
-
-
-      </section>
-
-
-      <!-- =================================================
-           ADMIN
-      ================================================== -->
-
-      <section
-        id="admin"
-        class="section"
-      >
-
-        <div class="content-box">
-
-          <h2>
-            Admin
-          </h2>
-
-          <p>
-            Administrator management will be
-            connected here.
-          </p>
-
-        </div>
-
-      </section>
-
-
-      <!-- =================================================
-           SETTINGS
-      ================================================== -->
-
-      <section
-        id="settings"
-        class="section"
-      >
-
-        <div class="content-box">
-
-          <h2>
-            Settings
-          </h2>
-
-          <p>
-            Website administration settings will
-            be added here.
-          </p>
 
         </div>
 
@@ -1979,2732 +1430,18 @@
 
     </main>
 
-  </div><!-- ==================================================
-           EVENTS
-      =================================================== -->
+  </div>
 
-      <section
-        id="events"
-        class="section"
-      >
+</div>
 
-        <div class="content-box">
 
-          <div class="section-header">
 
-            <div>
-              <h2>Events</h2>
+<!-- =======================================================
+     ADMIN JAVASCRIPT
+     ======================================================= -->
 
-              <p>
-                Create and manage ministry events.
-              </p>
-            </div>
+<script src="admin.js"></script>
 
-            <button
-              class="primary-btn"
-              type="button"
-              onclick="loadEvents()"
-            >
-              Refresh
-            </button>
-
-          </div>
-
-
-          <div
-            id="eventMessage"
-            class="event-message"
-          ></div>
-
-
-          <!-- ADD EVENT -->
-
-          <div class="add-event-form">
-
-            <input
-              type="text"
-              id="eventTitle"
-              placeholder="Enter event title"
-              autocomplete="off"
-            >
-
-            <button
-              class="primary-btn"
-              type="button"
-              onclick="addEvent()"
-            >
-              Add Event
-            </button>
-
-          </div>
-
-
-          <!-- EVENTS TABLE -->
-
-          <div class="events-table-wrapper">
-
-            <table class="events-table">
-
-              <thead>
-
-                <tr>
-                  <th>ID</th>
-                  <th>Event Title</th>
-                  <th>Action</th>
-                </tr>
-
-              </thead>
-
-              <tbody id="eventsTableBody">
-
-                <tr>
-
-                  <td
-                    colspan="3"
-                    class="loading-message"
-                  >
-                    Loading events...
-                  </td>
-
-                </tr>
-
-              </tbody>
-
-            </table>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- ==================================================
-           EVENT REGISTRATIONS
-      =================================================== -->
-
-      <section
-        id="registrations"
-        class="section"
-      >
-
-        <div class="content-box">
-
-          <div class="section-header">
-
-            <div>
-
-              <h2>
-                Event Registrations
-              </h2>
-
-              <p>
-                View and manage people who registered
-                for ministry events.
-              </p>
-
-            </div>
-
-            <button
-              class="primary-btn"
-              type="button"
-              onclick="loadRegistrations()"
-            >
-              Refresh
-            </button>
-
-          </div>
-
-
-          <!-- REGISTRATION COUNT -->
-
-          <div class="cards">
-
-            <div class="card">
-
-              <div class="card-title">
-                Total Registrations
-              </div>
-
-              <div
-                class="card-value"
-                id="registrationsCount"
-              >
-                0
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div
-            id="registrationMessage"
-            class="event-message"
-          ></div>
-
-
-          <!-- REGISTRATIONS TABLE -->
-
-          <div class="events-table-wrapper">
-
-            <table class="events-table">
-
-              <thead>
-
-                <tr>
-
-                  <th>ID</th>
-
-                  <th>Name</th>
-
-                  <th>Email</th>
-
-                  <th>Event</th>
-
-                  <th>Action</th>
-
-                </tr>
-
-              </thead>
-
-
-              <tbody
-                id="registrationsTableBody"
-              >
-
-                <tr>
-
-                  <td
-                    colspan="5"
-                    class="loading-message"
-                  >
-                    Loading registrations...
-                  </td>
-
-                </tr>
-
-              </tbody>
-
-            </table>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- ==================================================
-           EVENT ATTENDANCE
-      =================================================== -->
-
-      <section
-        id="attendance"
-        class="section"
-      >
-
-        <div class="content-box">
-
-          <div class="section-header">
-
-            <div>
-
-              <h2>
-                Event Attendance
-              </h2>
-
-              <p>
-                Manage attendance for ministry events.
-              </p>
-
-            </div>
-
-          </div>
-
-
-          <div class="empty-message">
-
-            Event attendance management will be
-            connected here.
-
-          </div>
-
-        </div>
-
-        </section><!-- ==================================================
-           SERMONS
-      =================================================== -->
-
-      <section
-        id="sermons"
-        class="section"
-      >
-
-        <div class="content-box">
-
-          <div class="section-header">
-
-            <div>
-
-              <h2>
-                Sermon Management
-              </h2>
-
-              <p>
-                Upload, edit, publish, unpublish and delete
-                sermons for the Photizo Gospel Mission
-                International website.
-              </p>
-
-            </div>
-
-            <button
-              class="primary-btn"
-              type="button"
-              onclick="loadSermons()"
-            >
-              Refresh
-            </button>
-
-          </div>
-
-
-          <!-- SERMON MESSAGE -->
-
-          <div
-            id="sermonMessage"
-            class="event-message"
-          ></div>
-
-
-          <!-- ==================================================
-               SERMON FORM
-          =================================================== -->
-
-          <div class="content-box">
-
-            <h3
-              id="sermonFormTitle"
-              style="margin-bottom:20px;"
-            >
-              Add New Sermon
-            </h3>
-
-
-            <!-- Hidden ID for editing -->
-
-            <input
-              type="hidden"
-              id="sermonId"
-            >
-
-
-            <div
-              style="
-                display:grid;
-                gap:15px;
-              "
-            >
-
-              <!-- TITLE -->
-
-              <input
-                type="text"
-                id="sermonTitle"
-                placeholder="Sermon title"
-                autocomplete="off"
-                style="
-                  width:100%;
-                  padding:13px;
-                  border:1px solid #d1d5db;
-                  border-radius:8px;
-                  font-size:15px;
-                "
-              >
-
-
-              <!-- SPEAKER -->
-
-              <input
-                type="text"
-                id="sermonSpeaker"
-                placeholder="Speaker / Pastor"
-                autocomplete="off"
-                style="
-                  width:100%;
-                  padding:13px;
-                  border:1px solid #d1d5db;
-                  border-radius:8px;
-                  font-size:15px;
-                "
-              >
-
-
-              <!-- DATE -->
-
-              <input
-                type="date"
-                id="sermonDate"
-                style="
-                  width:100%;
-                  padding:13px;
-                  border:1px solid #d1d5db;
-                  border-radius:8px;
-                  font-size:15px;
-                "
-              >
-
-
-              <!-- DESCRIPTION -->
-
-              <textarea
-                id="sermonDescription"
-                placeholder="Sermon description"
-                rows="5"
-                style="
-                  width:100%;
-                  padding:13px;
-                  border:1px solid #d1d5db;
-                  border-radius:8px;
-                  font-size:15px;
-                  resize:vertical;
-                "
-              ></textarea>
-
-
-              <!-- ==================================================
-                   AUDIO
-              =================================================== -->
-
-              <div>
-
-                <label
-                  for="sermonAudio"
-                  style="
-                    display:block;
-                    margin-bottom:8px;
-                    font-weight:bold;
-                  "
-                >
-                  Sermon Audio
-                </label>
-
-                <input
-                  type="file"
-                  id="sermonAudio"
-                  accept="audio/*"
-                  style="
-                    width:100%;
-                    padding:12px;
-                    border:1px solid #d1d5db;
-                    border-radius:8px;
-                  "
-                >
-
-                <small
-                  style="
-                    display:block;
-                    margin-top:6px;
-                    color:#6b7280;
-                  "
-                >
-                  Required when adding a new sermon.
-                  Leave empty when editing if you do not
-                  want to replace the current audio.
-                </small>
-
-              </div>
-
-
-              <!-- ==================================================
-                   IMAGE
-              =================================================== -->
-
-              <div>
-
-                <label
-                  for="sermonImage"
-                  style="
-                    display:block;
-                    margin-bottom:8px;
-                    font-weight:bold;
-                  "
-                >
-                  Sermon Image
-                </label>
-
-                <input
-                  type="file"
-                  id="sermonImage"
-                  accept="image/*"
-                  style="
-                    width:100%;
-                    padding:12px;
-                    border:1px solid #d1d5db;
-                    border-radius:8px;
-                  "
-                >
-
-                <small
-                  style="
-                    display:block;
-                    margin-top:6px;
-                    color:#6b7280;
-                  "
-                >
-                  Optional. Select a new image when
-                  editing to replace the current image.
-                </small>
-
-              </div>
-
-
-              <!-- ==================================================
-                   PUBLISH
-              =================================================== -->
-
-              <label
-                style="
-                  display:flex;
-                  align-items:center;
-                  gap:10px;
-                  cursor:pointer;
-                "
-              >
-
-                <input
-                  type="checkbox"
-                  id="sermonPublished"
-                >
-
-                <span>
-                  Publish this sermon
-                </span>
-
-              </label>
-
-
-              <!-- ==================================================
-                   BUTTONS
-              =================================================== -->
-
-              <div
-                style="
-                  display:flex;
-                  gap:10px;
-                  flex-wrap:wrap;
-                "
-              >
-
-                <button
-                  type="button"
-                  id="saveSermonButton"
-                  class="primary-btn"
-                  onclick="saveSermon()"
-                >
-                  Upload & Save Sermon
-                </button>
-
-
-                <button
-                  type="button"
-                  id="cancelEditButton"
-                  class="primary-btn"
-                  onclick="cancelSermonEdit()"
-                  style="
-                    display:none;
-                    background:#6b7280;
-                  "
-                >
-                  Cancel Edit
-                </button>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <!-- ==================================================
-               EXISTING SERMONS
-          =================================================== -->
-
-          <div class="content-box">
-
-            <h3
-              style="margin-bottom:20px;"
-            >
-              Existing Sermons
-            </h3>
-
-
-            <div class="events-table-wrapper">
-
-              <table class="events-table">
-
-                <thead>
-
-                  <tr>
-
-                    <th>
-                      Title
-                    </th>
-
-                    <th>
-                      Speaker
-                    </th>
-
-                    <th>
-                      Date
-                    </th>
-
-                    <th>
-                      Status
-                    </th>
-
-                    <th>
-                      Action
-                    </th>
-
-                  </tr>
-
-                </thead>
-
-
-                <tbody
-                  id="sermonsTableBody"
-                >
-
-                  <tr>
-
-                    <td
-                      colspan="5"
-                      class="loading-message"
-                    >
-                      Loading sermons...
-                    </td>
-
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- ==================================================
-           ADMIN
-      =================================================== -->
-
-      <section
-        id="admin"
-        class="section"
-      >
-
-        <div class="content-box">
-
-          <div class="section-header">
-
-            <div>
-
-              <h2>
-                Admin
-              </h2>
-
-              <p>
-                Administrator management.
-              </p>
-
-            </div>
-
-          </div>
-
-
-          <div class="empty-message">
-
-            Administrator management will be
-            connected here.
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- ==================================================
-           SETTINGS
-      =================================================== -->
-
-      <section
-        id="settings"
-        class="section"
-      >
-
-        <div class="content-box">
-
-          <div class="section-header">
-
-            <div>
-
-              <h2>
-                Settings
-              </h2>
-
-              <p>
-                Website administration settings.
-              </p>
-
-            </div>
-
-          </div>
-
-
-          <div class="empty-message">
-
-            Website administration settings will
-            be added here.
-
-          </div>
-
-        </div>
-
-                  </section>
-                  <script>
-/* =========================================================
-   PHOTIZO GOSPEL MISSION INTERNATIONAL
-   ADMIN DASHBOARD JAVASCRIPT
-========================================================= */
-
-
-/* =========================================================
-   SUPABASE CONNECTION
-========================================================= */
-
-const SUPABASE_URL =
-  "https://dtrhlngjqecednckwexv.supabase.co";
-
-const SUPABASE_ANON_KEY =
-  "sb_publishable_orDFZig1PQp8ql7zRAMIuA_SXgoy4E3";
-
-const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-  );
-
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-async function login() {
-
-  const email =
-    document
-      .getElementById("email")
-      .value
-      .trim();
-
-  const password =
-    document
-      .getElementById("password")
-      .value;
-
-  const message =
-    document.getElementById(
-      "loginMessage"
-    );
-
-
-  message.textContent = "";
-
-
-  if (!email || !password) {
-
-    message.textContent =
-      "Please enter your email and password.";
-
-    return;
-  }
-
-
-  message.textContent =
-    "Signing in...";
-
-
-  try {
-
-    const { data, error } =
-      await supabaseClient.auth
-        .signInWithPassword({
-
-          email: email,
-          password: password
-
-        });
-
-
-    if (error) {
-
-      console.error(
-        "Login error:",
-        error
-      );
-
-      message.textContent =
-        "Invalid email or password.";
-
-      return;
-    }
-
-
-    if (!data.session) {
-
-      message.textContent =
-        "Unable to create a login session.";
-
-      return;
-    }
-
-
-    /*
-      Verify that the logged-in user
-      actually exists in the admins table
-      and is active.
-    */
-
-    const { data: adminData, error: adminError } =
-      await supabaseClient
-        .from("admins")
-        .select(
-          "id, user_id, full_name, email, is_active"
-        )
-        .eq(
-          "user_id",
-          data.user.id
-        )
-        .eq(
-          "is_active",
-          true
-        )
-        .maybeSingle();
-
-
-    if (adminError) {
-
-      console.error(
-        "Admin verification error:",
-        adminError
-      );
-
-      await supabaseClient.auth.signOut();
-
-      message.textContent =
-        "Unable to verify administrator access.";
-
-      return;
-    }
-
-
-    if (!adminData) {
-
-      await supabaseClient.auth.signOut();
-
-      message.textContent =
-        "You are not authorized to access the Admin area.";
-
-      return;
-    }
-
-
-    /* =====================================================
-       LOGIN SUCCESS
-    ===================================================== */
-
-    document
-      .getElementById("loginPage")
-      .style.display = "none";
-
-
-    document
-      .getElementById("dashboard")
-      .style.display = "block";
-
-
-    const adminBadge =
-      document.querySelector(".admin-badge");
-
-
-    if (adminBadge) {
-
-      adminBadge.textContent =
-        adminData.full_name ||
-        "Administrator";
-
-    }
-
-
-    message.textContent =
-      "";
-
-
-    await loadEvents();
-
-    await loadRegistrations();
-
-    await loadSermons();
-
-
-  } catch (error) {
-
-    console.error(
-      "Unexpected login error:",
-      error
-    );
-
-    message.textContent =
-      "Something went wrong. Please try again.";
-
-  }
-
-}
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-async function logout() {
-
-  try {
-
-    await supabaseClient.auth.signOut();
-
-  } catch (error) {
-
-    console.error(
-      "Logout error:",
-      error
-    );
-
-  }
-
-
-  document
-    .getElementById("dashboard")
-    .style.display = "none";
-
-
-  document
-    .getElementById("loginPage")
-    .style.display = "flex";
-
-
-  document
-    .getElementById("email")
-    .value = "";
-
-
-  document
-    .getElementById("password")
-    .value = "";
-
-
-  document
-    .getElementById("loginMessage")
-    .textContent = "";
-
-}
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-function showSection(
-  sectionId,
-  button
-) {
-
-  const sections =
-    document.querySelectorAll(
-      ".section"
-    );
-
-
-  sections.forEach(
-    function(section) {
-
-      section.classList.remove(
-        "active"
-      );
-
-    }
-  );
-
-
-  const selectedSection =
-    document.getElementById(
-      sectionId
-    );
-
-
-  if (selectedSection) {
-
-    selectedSection.classList.add(
-      "active"
-    );
-
-  }
-
-
-  const buttons =
-    document.querySelectorAll(
-      ".nav-item"
-    );
-
-
-  buttons.forEach(
-    function(btn) {
-
-      btn.classList.remove(
-        "active"
-      );
-
-    }
-  );
-
-
-  if (button) {
-
-    button.classList.add(
-      "active"
-    );
-
-  }
-
-
-  /* =====================================================
-     LOAD DATA WHEN SECTION IS OPENED
-  ===================================================== */
-
-  if (sectionId === "events") {
-
-    loadEvents();
-
-  }
-
-
-  if (sectionId === "registrations") {
-
-    loadRegistrations();
-
-  }
-
-
-  if (sectionId === "sermons") {
-
-    loadSermons();
-
-  }
-
-}
-
-
-/* =========================================================
-   LOAD EVENTS
-========================================================= */
-
-async function loadEvents() {
-
-  const tableBody =
-    document.getElementById(
-      "eventsTableBody"
-    );
-
-
-  if (!tableBody) {
-    return;
-  }
-
-
-  tableBody.innerHTML = `
-    <tr>
-      <td
-        colspan="3"
-        class="loading-message"
-      >
-        Loading events...
-      </td>
-    </tr>
-  `;
-
-
-  clearEventMessage();
-
-
-  try {
-
-    const { data, error } =
-      await supabaseClient
-        .from("Events")
-        .select(
-          "id, title"
-        )
-        .order(
-          "id",
-          {
-            ascending: false
-          }
-        );
-
-
-    if (error) {
-
-      console.error(
-        "Load events error:",
-        error
-      );
-
-
-      tableBody.innerHTML = `
-        <tr>
-          <td
-            colspan="3"
-            class="empty-message"
-          >
-            Unable to load events.
-          </td>
-        </tr>
-      `;
-
-
-      showEventMessage(
-        error.message,
-        "error"
-      );
-
-      return;
-    }
-
-
-    const eventsCount =
-      document.getElementById(
-        "eventsCount"
-      );
-
-
-    if (eventsCount) {
-
-      eventsCount.textContent =
-        data
-          ? data.length
-          : 0;
-
-    }
-
-
-    if (
-      !data ||
-      data.length === 0
-    ) {
-
-      tableBody.innerHTML = `
-        <tr>
-          <td
-            colspan="3"
-            class="empty-message"
-          >
-            No events found.
-          </td>
-        </tr>
-      `;
-
-      return;
-    }
-
-
-    tableBody.innerHTML = "";
-
-
-    data.forEach(
-      function(event) {
-
-        const row =
-          document.createElement(
-            "tr"
-          );
-
-
-        const idCell =
-          document.createElement(
-            "td"
-          );
-
-        idCell.textContent =
-          event.id;
-
-
-        const titleCell =
-          document.createElement(
-            "td"
-          );
-
-        titleCell.textContent =
-          event.title || "";
-
-
-        const actionCell =
-          document.createElement(
-            "td"
-          );
-
-
-        const deleteButton =
-          document.createElement(
-            "button"
-          );
-
-
-        deleteButton.className =
-          "delete-btn";
-
-
-        deleteButton.textContent =
-          "Delete";
-
-
-        deleteButton.onclick =
-          function() {
-
-            deleteEvent(
-              event.id
-            );
-
-          };
-
-
-        actionCell.appendChild(
-          deleteButton
-        );
-
-
-        row.appendChild(
-          idCell
-        );
-
-
-        row.appendChild(
-          titleCell
-        );
-
-
-        row.appendChild(
-          actionCell
-        );
-
-
-        tableBody.appendChild(
-          row
-        );
-
-      }
-    );
-
-
-  } catch (error) {
-
-    console.error(
-      "Unexpected events error:",
-      error
-    );
-
-
-    tableBody.innerHTML = `
-      <tr>
-        <td
-          colspan="3"
-          class="empty-message"
-        >
-          Something went wrong while loading events.
-        </td>
-      </tr>
-    `;
-
-  }
-
-}
-
-
-/* =========================================================
-   ADD EVENT
-========================================================= */
-
-async function addEvent() {
-
-  const input =
-    document.getElementById(
-      "eventTitle"
-    );
-
-
-  const title =
-    input
-      ? input.value.trim()
-      : "";
-
-
-  clearEventMessage();
-
-
-  if (!title) {
-
-    showEventMessage(
-      "Please enter an event title.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  try {
-
-    const { error } =
-      await supabaseClient
-        .from("Events")
-        .insert([
-          {
-            title: title
-          }
-        ]);
-
-
-    if (error) {
-
-      console.error(
-        "Add event error:",
-        error
-      );
-
-
-      showEventMessage(
-        error.message,
-        "error"
-      );
-
-      return;
-    }
-
-
-    input.value = "";
-
-
-    showEventMessage(
-      "Event added successfully.",
-      "success"
-    );
-
-
-    await loadEvents();
-
-
-  } catch (error) {
-
-    console.error(
-      "Unexpected add event error:",
-      error
-    );
-
-
-    showEventMessage(
-      "Unable to add event.",
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   DELETE EVENT
-========================================================= */
-
-async function deleteEvent(
-  eventId
-) {
-
-  const confirmed =
-    confirm(
-      "Are you sure you want to delete this event?"
-    );
-
-
-  if (!confirmed) {
-    return;
-  }
-
-
-  try {
-
-    const { error } =
-      await supabaseClient
-        .from("Events")
-        .delete()
-        .eq(
-          "id",
-          eventId
-        );
-
-
-    if (error) {
-
-      console.error(
-        "Delete event error:",
-        error
-      );
-
-
-      showEventMessage(
-        error.message,
-        "error"
-      );
-
-      return;
-    }
-
-
-    showEventMessage(
-      "Event deleted successfully.",
-      "success"
-    );
-
-
-    await loadEvents();
-
-
-  } catch (error) {
-
-    console.error(
-      "Unexpected delete event error:",
-      error
-    );
-
-
-    showEventMessage(
-      "Unable to delete event.",
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   EVENT MESSAGES
-========================================================= */
-
-function showEventMessage(
-  message,
-  type
-) {
-
-  const element =
-    document.getElementById(
-      "eventMessage"
-    );
-
-
-  if (!element) {
-    return;
-  }
-
-
-  element.textContent =
-    message;
-
-
-  element.className =
-    "event-message " +
-    (
-      type === "success"
-        ? "success-message"
-        : "error-message"
-    );
-
-}
-
-
-function clearEventMessage() {
-
-  const element =
-    document.getElementById(
-      "eventMessage"
-    );
-
-
-  if (!element) {
-    return;
-  }
-
-
-  element.textContent =
-    "";
-
-
-  element.className =
-    "event-message";
-
-}<script>
-/* =========================================================
-   EVENT MANAGEMENT
-========================================================= */
-
-async function loadEvents() {
-
-  const tableBody =
-    document.getElementById("eventsTableBody");
-
-  if (!tableBody) return;
-
-  tableBody.innerHTML = `
-    <tr>
-      <td colspan="3" class="loading-message">
-        Loading events...
-      </td>
-    </tr>
-  `;
-
-  clearEventMessage();
-
-  try {
-
-    const { data, error } =
-      await supabaseClient
-        .from("Events")
-        .select("id, title")
-        .order("id", {
-          ascending: false
-        });
-
-    if (error) {
-      throw error;
-    }
-
-    const eventsCount =
-      document.getElementById("eventsCount");
-
-    if (eventsCount) {
-      eventsCount.textContent =
-        data ? data.length : 0;
-    }
-
-    if (!data || data.length === 0) {
-
-      tableBody.innerHTML = `
-        <tr>
-          <td colspan="3" class="empty-message">
-            No events found.
-          </td>
-        </tr>
-      `;
-
-      return;
-    }
-
-    tableBody.innerHTML = "";
-
-    data.forEach(event => {
-
-      const row =
-        document.createElement("tr");
-
-      const idCell =
-        document.createElement("td");
-
-      idCell.textContent =
-        event.id;
-
-      const titleCell =
-        document.createElement("td");
-
-      titleCell.textContent =
-        event.title || "";
-
-      const actionCell =
-        document.createElement("td");
-
-      const deleteButton =
-        document.createElement("button");
-
-      deleteButton.className =
-        "delete-btn";
-
-      deleteButton.textContent =
-        "Delete";
-
-      deleteButton.onclick =
-        function () {
-          deleteEvent(event.id);
-        };
-
-      actionCell.appendChild(
-        deleteButton
-      );
-
-      row.appendChild(idCell);
-      row.appendChild(titleCell);
-      row.appendChild(actionCell);
-
-      tableBody.appendChild(row);
-
-    });
-
-  } catch (error) {
-
-    console.error(
-      "Load events error:",
-      error
-    );
-
-    tableBody.innerHTML = `
-      <tr>
-        <td colspan="3" class="empty-message">
-          Unable to load events.
-        </td>
-      </tr>
-    `;
-
-    showEventMessage(
-      "Unable to load events.",
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   ADD EVENT
-========================================================= */
-
-async function addEvent() {
-
-  const input =
-    document.getElementById("eventTitle");
-
-  if (!input) return;
-
-  const title =
-    input.value.trim();
-
-  clearEventMessage();
-
-  if (!title) {
-
-    showEventMessage(
-      "Please enter an event title.",
-      "error"
-    );
-
-    return;
-  }
-
-  try {
-
-    const { error } =
-      await supabaseClient
-        .from("Events")
-        .insert([
-          {
-            title: title
-          }
-        ]);
-
-    if (error) {
-      throw error;
-    }
-
-    input.value = "";
-
-    showEventMessage(
-      "Event added successfully.",
-      "success"
-    );
-
-    await loadEvents();
-
-  } catch (error) {
-
-    console.error(
-      "Add event error:",
-      error
-    );
-
-    showEventMessage(
-      error.message ||
-      "Unable to add event.",
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   DELETE EVENT
-========================================================= */
-
-async function deleteEvent(eventId) {
-
-  const confirmed =
-    confirm(
-      "Are you sure you want to delete this event?"
-    );
-
-  if (!confirmed) {
-    return;
-  }
-
-  try {
-
-    const { error } =
-      await supabaseClient
-        .from("Events")
-        .delete()
-        .eq("id", eventId);
-
-    if (error) {
-      throw error;
-    }
-
-    showEventMessage(
-      "Event deleted successfully.",
-      "success"
-    );
-
-    await loadEvents();
-
-  } catch (error) {
-
-    console.error(
-      "Delete event error:",
-      error
-    );
-
-    showEventMessage(
-      error.message ||
-      "Unable to delete event.",
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   EVENT MESSAGES
-========================================================= */
-
-function showEventMessage(
-  message,
-  type
-) {
-
-  const element =
-    document.getElementById(
-      "eventMessage"
-    );
-
-  if (!element) return;
-
-  element.textContent =
-    message;
-
-  element.className =
-    "event-message " +
-    (
-      type === "success"
-        ? "success-message"
-        : "error-message"
-    );
-
-}
-
-
-function clearEventMessage() {
-
-  const element =
-    document.getElementById(
-      "eventMessage"
-    );
-
-  if (!element) return;
-
-  element.textContent = "";
-
-  element.className =
-    "event-message";
-  /* =========================================================
-   SERMON MANAGEMENT
-========================================================= */
-
-async function addSermon() {
-
-  const title =
-    document.getElementById("sermonTitle").value.trim();
-
-  const speaker =
-    document.getElementById("sermonSpeaker").value.trim();
-
-  const sermonDate =
-    document.getElementById("sermonDate").value;
-
-  const description =
-    document.getElementById("sermonDescription").value.trim();
-
-  const audioFile =
-    document.getElementById("sermonAudio").files[0];
-
-  const imageFile =
-    document.getElementById("sermonImage").files[0];
-
-  const published =
-    document.getElementById("sermonPublished").checked;
-
-
-  if (!title) {
-    showSermonMessage(
-      "Please enter the sermon title.",
-      "error"
-    );
-    return;
-  }
-
-
-  if (!audioFile) {
-    showSermonMessage(
-      "Please select a sermon audio file.",
-      "error"
-    );
-    return;
-  }
-
-
-  try {
-
-    showSermonMessage(
-      "Uploading sermon audio...",
-      "success"
-    );
-
-
-    const audioFileName =
-      Date.now() + "-" +
-      audioFile.name.replace(
-        /[^a-zA-Z0-9._-]/g,
-        "-"
-      );
-
-
-    const audioPath =
-      "audio/" + audioFileName;
-
-
-    const { error: audioError } =
-      await supabaseClient
-        .storage
-        .from("sermon-media")
-        .upload(
-          audioPath,
-          audioFile,
-          {
-            cacheControl: "3600",
-            upsert: false
-          }
-        );
-
-
-    if (audioError) {
-      throw audioError;
-    }
-
-
-    let imagePath = null;
-
-
-    if (imageFile) {
-
-      showSermonMessage(
-        "Uploading sermon image...",
-        "success"
-      );
-
-
-      const imageFileName =
-        Date.now() + "-" +
-        imageFile.name.replace(
-          /[^a-zA-Z0-9._-]/g,
-          "-"
-        );
-
-
-      imagePath =
-        "images/" + imageFileName;
-
-
-      const { error: imageError } =
-        await supabaseClient
-          .storage
-          .from("sermon-images")
-          .upload(
-            imagePath,
-            imageFile,
-            {
-              cacheControl: "3600",
-              upsert: false
-            }
-          );
-
-
-      if (imageError) {
-        throw imageError;
-      }
-
-    }
-
-
-    showSermonMessage(
-      "Saving sermon...",
-      "success"
-    );
-
-
-    const { error: sermonError } =
-      await supabaseClient
-        .from("Sermons")
-        .insert([
-          {
-            title: title,
-            speaker: speaker || null,
-            description: description || null,
-            sermon_date: sermonDate || null,
-            audio_path: audioPath,
-            image_path: imagePath,
-            published: published
-          }
-        ]);
-
-
-    if (sermonError) {
-      throw sermonError;
-    }
-
-
-    showSermonMessage(
-      "Sermon uploaded successfully.",
-      "success"
-    );
-
-
-    document.getElementById("sermonTitle").value = "";
-    document.getElementById("sermonSpeaker").value = "";
-    document.getElementById("sermonDate").value = "";
-    document.getElementById("sermonDescription").value = "";
-    document.getElementById("sermonAudio").value = "";
-    document.getElementById("sermonImage").value = "";
-    document.getElementById("sermonPublished").checked = false;
-
-
-    await loadSermons();
-
-
-  } catch (error) {
-
-    console.error(
-      "Add sermon error:",
-      error
-    );
-
-    showSermonMessage(
-      "Unable to upload sermon: " +
-      (error.message || "Unknown error"),
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   LOAD SERMONS
-========================================================= */
-
-async function loadSermons() {
-
-  const tableBody =
-    document.getElementById("sermonsTableBody");
-
-  if (!tableBody) return;
-
-
-  tableBody.innerHTML = `
-    <tr>
-      <td colspan="5" class="loading-message">
-        Loading sermons...
-      </td>
-    </tr>
-  `;
-
-
-  try {
-
-    const { data, error } =
-      await supabaseClient
-        .from("Sermons")
-        .select(
-          "id, title, speaker, sermon_date, published"
-        )
-        .order(
-          "created_at",
-          {
-            ascending: false
-          }
-        );
-
-
-    if (error) {
-      throw error;
-    }
-
-
-    if (!data || data.length === 0) {
-
-      tableBody.innerHTML = `
-        <tr>
-          <td colspan="5" class="empty-message">
-            No sermons found.
-          </td>
-        </tr>
-      `;
-
-      return;
-    }
-
-
-    tableBody.innerHTML = "";
-
-
-    data.forEach(sermon => {
-
-      const row =
-        document.createElement("tr");
-
-
-      row.innerHTML = `
-
-        <td>
-          ${escapeHtml(sermon.title || "")}
-        </td>
-
-        <td>
-          ${escapeHtml(sermon.speaker || "")}
-        </td>
-
-        <td>
-          ${sermon.sermon_date || ""}
-        </td>
-
-        <td>
-          ${sermon.published
-            ? "Published"
-            : "Unpublished"}
-        </td>
-
-        <td>
-
-          <button
-            class="primary-btn"
-            onclick="editSermon('${sermon.id}')"
-            style="margin-right:6px;"
-          >
-            Edit
-          </button>
-
-          <button
-            class="primary-btn"
-            onclick="toggleSermonPublished(
-              '${sermon.id}',
-              ${sermon.published}
-            )"
-            style="margin-right:6px;"
-          >
-            ${sermon.published
-              ? "Unpublish"
-              : "Publish"}
-          </button>
-
-          <button
-            class="delete-btn"
-            onclick="deleteSermon('${sermon.id}')"
-          >
-            Delete
-          </button>
-
-        </td>
-
-      `;
-
-
-      tableBody.appendChild(row);
-
-    });
-
-
-  } catch (error) {
-
-    console.error(
-      "Load sermons error:",
-      error
-    );
-
-    tableBody.innerHTML = `
-      <tr>
-        <td colspan="5" class="empty-message">
-          Unable to load sermons.
-        </td>
-      </tr>
-    `;
-
-  }
-
-}
-
-
-/* =========================================================
-   EDIT SERMON
-========================================================= */
-
-async function editSermon(sermonId) {
-
-  try {
-
-    const { data: sermon, error } =
-      await supabaseClient
-        .from("Sermons")
-        .select(`
-          id,
-          title,
-          speaker,
-          description,
-          sermon_date,
-          audio_path,
-          image_path,
-          published
-        `)
-        .eq("id", sermonId)
-        .maybeSingle();
-
-
-    if (error) {
-      throw error;
-    }
-
-
-    if (!sermon) {
-
-      showSermonMessage(
-        "Sermon not found.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    document.getElementById("sermonId").value =
-      sermon.id;
-
-    document.getElementById("sermonTitle").value =
-      sermon.title || "";
-
-    document.getElementById("sermonSpeaker").value =
-      sermon.speaker || "";
-
-    document.getElementById("sermonDate").value =
-      sermon.sermon_date || "";
-
-    document.getElementById("sermonDescription").value =
-      sermon.description || "";
-
-    document.getElementById("sermonPublished").checked =
-      sermon.published === true;
-
-
-    document.getElementById("sermonFormTitle").textContent =
-      "Edit Sermon";
-
-    document.getElementById("saveSermonButton").textContent =
-      "Update Sermon";
-
-    document.getElementById("cancelEditButton").style.display =
-      "inline-block";
-
-
-    document.getElementById("sermonTitle").scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-
-
-  } catch (error) {
-
-    console.error(
-      "Edit sermon error:",
-      error
-    );
-
-    showSermonMessage(
-      "Unable to load sermon for editing.",
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   UPDATE SERMON
-========================================================= */
-
-async function updateSermon(sermonId) {
-
-  const title =
-    document.getElementById("sermonTitle").value.trim();
-
-  const speaker =
-    document.getElementById("sermonSpeaker").value.trim();
-
-  const sermonDate =
-    document.getElementById("sermonDate").value;
-
-  const description =
-    document.getElementById("sermonDescription").value.trim();
-
-  const audioFile =
-    document.getElementById("sermonAudio").files[0];
-
-  const imageFile =
-    document.getElementById("sermonImage").files[0];
-
-  const published =
-    document.getElementById("sermonPublished").checked;
-
-
-  if (!title) {
-
-    showSermonMessage(
-      "Please enter the sermon title.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  try {
-
-    showSermonMessage(
-      "Updating sermon...",
-      "success"
-    );
-
-
-    const { data: existing, error: fetchError } =
-      await supabaseClient
-        .from("Sermons")
-        .select("audio_path, image_path")
-        .eq("id", sermonId)
-        .maybeSingle();
-
-
-    if (fetchError) {
-      throw fetchError;
-    }
-
-
-    let audioPath =
-      existing?.audio_path || null;
-
-    let imagePath =
-      existing?.image_path || null;
-
-
-    if (audioFile) {
-
-      const audioFileName =
-        Date.now() + "-" +
-        audioFile.name.replace(
-          /[^a-zA-Z0-9._-]/g,
-          "-"
-        );
-
-
-      const newAudioPath =
-        "audio/" + audioFileName;
-
-
-      const { error: uploadError } =
-        await supabaseClient
-          .storage
-          .from("sermon-media")
-          .upload(
-            newAudioPath,
-            audioFile,
-            {
-              cacheControl: "3600",
-              upsert: false
-            }
-          );
-
-
-      if (uploadError) {
-        throw uploadError;
-      }
-
-
-      audioPath =
-        newAudioPath;
-
-
-      if (existing?.audio_path) {
-
-        await supabaseClient
-          .storage
-          .from("sermon-media")
-          .remove([
-            existing.audio_path
-          ]);
-
-      }
-
-    }
-
-
-    if (imageFile) {
-
-      const imageFileName =
-        Date.now() + "-" +
-        imageFile.name.replace(
-          /[^a-zA-Z0-9._-]/g,
-          "-"
-        );
-
-
-      const newImagePath =
-        "images/" + imageFileName;
-
-
-      const { error: imageError } =
-        await supabaseClient
-          .storage
-          .from("sermon-images")
-          .upload(
-            newImagePath,
-            imageFile,
-            {
-              cacheControl: "3600",
-              upsert: false
-            }
-          );
-
-
-      if (imageError) {
-        throw imageError;
-      }
-
-
-      imagePath =
-        newImagePath;
-
-
-      if (existing?.image_path) {
-
-        await supabaseClient
-          .storage
-          .from("sermon-images")
-          .remove([
-            existing.image_path
-          ]);
-
-      }
-
-    }
-
-
-    const { error: updateError } =
-      await supabaseClient
-        .from("Sermons")
-        .update({
-          title: title,
-          speaker: speaker || null,
-          description: description || null,
-          sermon_date: sermonDate || null,
-          audio_path: audioPath,
-          image_path: imagePath,
-          published: published,
-          updated_at: new Date().toISOString()
-        })
-        .eq("id", sermonId);
-
-
-    if (updateError) {
-      throw updateError;
-    }
-
-
-    showSermonMessage(
-      "Sermon updated successfully.",
-      "success"
-    );
-
-
-    cancelSermonEdit();
-
-    await loadSermons();
-
-
-  } catch (error) {
-
-    console.error(
-      "Update sermon error:",
-      error
-    );
-
-    showSermonMessage(
-      "Unable to update sermon: " +
-      (error.message || "Unknown error"),
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   SAVE SERMON
-========================================================= */
-
-async function saveSermon() {
-
-  const sermonId =
-    document.getElementById("sermonId").value.trim();
-
-  if (sermonId) {
-    await updateSermon(sermonId);
-  } else {
-    await addSermon();
-  }
-
-}
-
-
-/* =========================================================
-   CANCEL SERMON EDIT
-========================================================= */
-
-function cancelSermonEdit() {
-
-  document.getElementById("sermonId").value = "";
-  document.getElementById("sermonTitle").value = "";
-  document.getElementById("sermonSpeaker").value = "";
-  document.getElementById("sermonDate").value = "";
-  document.getElementById("sermonDescription").value = "";
-  document.getElementById("sermonAudio").value = "";
-  document.getElementById("sermonImage").value = "";
-
-  document.getElementById(
-    "sermonPublished"
-  ).checked = false;
-
-
-  document.getElementById(
-    "sermonFormTitle"
-  ).textContent = "Add New Sermon";
-
-
-  document.getElementById(
-    "saveSermonButton"
-  ).textContent = "Upload & Save Sermon";
-
-
-  document.getElementById(
-    "cancelEditButton"
-  ).style.display = "none";
-
-}
-
-
-/* =========================================================
-   PUBLISH / UNPUBLISH SERMON
-========================================================= */
-
-async function toggleSermonPublished(
-  sermonId,
-  currentStatus
-) {
-
-  const newStatus =
-    !currentStatus;
-
-
-  try {
-
-    const { error } =
-      await supabaseClient
-        .from("Sermons")
-        .update({
-          published: newStatus,
-          updated_at: new Date().toISOString()
-        })
-        .eq("id", sermonId);
-
-
-    if (error) {
-      throw error;
-    }
-
-
-    showSermonMessage(
-      newStatus
-        ? "Sermon published successfully."
-        : "Sermon unpublished successfully.",
-      "success"
-    );
-
-
-    await loadSermons();
-
-
-  } catch (error) {
-
-    console.error(
-      "Publish status error:",
-      error
-    );
-
-    showSermonMessage(
-      error.message ||
-      "Unable to update publication status.",
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   DELETE SERMON
-========================================================= */
-
-async function deleteSermon(sermonId) {
-
-  const confirmed =
-    confirm(
-      "Are you sure you want to delete this sermon?"
-    );
-
-  if (!confirmed) {
-    return;
-  }
-
-
-  try {
-
-    const { data: sermon, error: fetchError } =
-      await supabaseClient
-        .from("Sermons")
-        .select("audio_path, image_path")
-        .eq("id", sermonId)
-        .maybeSingle();
-
-
-    if (fetchError) {
-      throw fetchError;
-    }
-
-
-    const { error: deleteError } =
-      await supabaseClient
-        .from("Sermons")
-        .delete()
-        .eq("id", sermonId);
-
-
-    if (deleteError) {
-      throw deleteError;
-    }
-
-
-    if (sermon?.audio_path) {
-
-      await supabaseClient
-        .storage
-        .from("sermon-media")
-        .remove([
-          sermon.audio_path
-        ]);
-
-    }
-
-
-    if (sermon?.image_path) {
-
-      await supabaseClient
-        .storage
-        .from("sermon-images")
-        .remove([
-          sermon.image_path
-        ]);
-
-    }
-
-
-    showSermonMessage(
-      "Sermon deleted successfully.",
-      "success"
-    );
-
-
-    await loadSermons();
-
-
-  } catch (error) {
-
-    console.error(
-      "Delete sermon error:",
-      error
-    );
-
-    showSermonMessage(
-      error.message ||
-      "Unable to delete sermon.",
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   SERMON MESSAGE
-========================================================= */
-
-function showSermonMessage(
-  message,
-  type
-) {
-
-  const element =
-    document.getElementById(
-      "sermonMessage"
-    );
-
-  if (!element) {
-    return;
-  }
-
-
-  element.textContent =
-    message;
-
-
-  element.className =
-    "event-message " +
-    (
-      type === "success"
-        ? "success-message"
-        : "error-message"
-    );
-
-}
-
-
-/* =========================================================
-   HTML ESCAPE
-========================================================= */
-
-function escapeHtml(value) {
-
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-
-}
-
-
-/* =========================================================
-   SESSION CHECK
-========================================================= */
-
-async function checkSession() {
-
-  const { data } =
-    await supabaseClient.auth.getSession();
-
-
-  if (data.session) {
-
-    document
-      .getElementById("loginPage")
-      .style.display = "none";
-
-
-    document
-      .getElementById("dashboard")
-      .style.display = "block";
-
-
-    loadEvents();
-
-  }
-
-}
-
-
-/* =========================================================
-   START
-========================================================= */
-
-checkSession();
-
-</script>
 
 </body>
 </html>
-
-  }
-                  
